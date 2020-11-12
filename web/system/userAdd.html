@@ -36,7 +36,7 @@ a:hover {
 }
 a:active {
 	font-size: 12px;
-	color: #FF0000;
+	color: #ff0000;
 	text-decoration: none;
 }
 .STYLE7 {font-size: 12}
@@ -45,10 +45,62 @@ a:active {
 </style>
 
 <script>
+
+    function save() {
+      var flag =  checkForm();
+
+      if (flag) {
+        document.forms[0].submit();
+      }
+
+    }
+    
+    function checkForm() {
+      if (document.getElementById("usercode").value == "") {
+        alert("用户代码不能为空");
+        document.getElementById("usercode").focus();
+        return false;
+      }
+
+      if (document.getElementById("username").value == "") {
+        alert("用户名不能为空");
+        document.getElementById("username").focus();
+        return false;
+      }
+
+      if (document.getElementById("userpwd").value == "") {
+        alert("密码不能为空");
+        document.getElementById("userpwd").focus();
+        return false;
+      }
+
+      if (document.getElementById("checkpwd").value == "") {
+        alert("确认密码不能为空");
+        document.getElementById("checkpwd").focus();
+        return false;
+      }
+
+      if (document.getElementById("checkpwd").value != document.getElementById("userpwd").value) {
+        alert("密码不一致，请修改！");
+        document.getElementById("userpwd").value = "";
+        document.getElementById("checkpwd").value = "";
+        document.getElementById("userpwd").focus();
+        return false;
+      }
+
+      if (document.getElementById("orgtype").value == "") {
+        alert("机构类型不能为空");
+        document.getElementById("orgtype").focus();
+        return false;
+      }
+
+      return true;
+    }
 </script>
 </head>
 
 <body>
+<form action="/user/add" method="post" id="userform">
 <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
   <tr>
     <td height="30"><table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -69,27 +121,27 @@ a:active {
           <tr height="26"></tr>
           <tr>
             <td width="200" bgcolor="#FFFFFF" height="26" class="STYLE1"><div align="right" style="padding:5px" class="STYLE2 STYLE1">用户代码</div></td>
-            <td bgcolor="#FFFFFF" class="STYLE1"><div align="left" style="padding:2px" class="STYLE2"><input type="text" name="usercode" style="width:100px; height:20px; border:solid 1px #035551; color:#000000">&nbsp;<font color='red'>*</font></div></td>
+            <td bgcolor="#FFFFFF" class="STYLE1"><div align="left" style="padding:2px" class="STYLE2"><input type="text" name="usercode" id="usercode" style="width:100px; height:20px; border:solid 1px #035551; color:#000000">&nbsp;<font color='red'>*</font></div></td>
           </tr>
           <tr>
             <td width="200" bgcolor="#FFFFFF" height="26" class="STYLE1"><div align="right" style="padding:5px" class="STYLE2 STYLE1">用户姓名</div></td>
-            <td bgcolor="#FFFFFF" class="STYLE1"><div align="left" style="padding:2px" class="STYLE2"><input type="text" name="username" style="width:100px; height:20px; border:solid 1px #035551; color:#000000">&nbsp;<font color='red'>*</font></div></td>
+            <td bgcolor="#FFFFFF" class="STYLE1"><div align="left" style="padding:2px" class="STYLE2"><input type="text" name="username" id="username" style="width:100px; height:20px; border:solid 1px #035551; color:#000000">&nbsp;<font color='red'>*</font></div></td>
           </tr>
           <tr>
             <td width="200" bgcolor="#FFFFFF" height="26" class="STYLE1"><div align="right" style="padding:5px" class="STYLE2 STYLE1">用户密码</div></td>
-            <td bgcolor="#FFFFFF" class="STYLE1"><div align="left" style="padding:2px" class="STYLE2"><input type="password" name="userpswd" style="width:100px; height:20px; border:solid 1px #035551; color:#000000">&nbsp;<font color='red'>*</font></div></td>
+            <td bgcolor="#FFFFFF" class="STYLE1"><div align="left" style="padding:2px" class="STYLE2"><input type="password" name="userpwd" id="userpwd" style="width:100px; height:20px; border:solid 1px #035551; color:#000000">&nbsp;<font color='red'>*</font></div></td>
           </tr>
           <tr>
             <td width="200" bgcolor="#FFFFFF" height="26" class="STYLE1"><div align="right" style="padding:5px" class="STYLE2 STYLE1">确认密码</div></td>
-            <td bgcolor="#FFFFFF" class="STYLE1"><div align="left" style="padding:2px" class="STYLE2"><input type="password" name="checkpswd" style="width:100px; height:20px; border:solid 1px #035551; color:#000000">&nbsp;<font color='red'>*</font></div></td>
+            <td bgcolor="#FFFFFF" class="STYLE1"><div align="left" style="padding:2px" class="STYLE2"><input type="password" name="checkpwd" id="checkpwd" style="width:100px; height:20px; border:solid 1px #035551; color:#000000">&nbsp;<font color='red'>*</font></div></td>
           </tr>
           <tr>
             <td width="200" bgcolor="#FFFFFF" height="26" class="STYLE1"><div align="right" style="padding:5px" class="STYLE2 STYLE1">机构类型</div></td>
             <td bgcolor="#FFFFFF" class="STYLE1"><div align="left" style="padding:2px" class="STYLE2">
-            <select name="orgtype" style="width:105px; height:20px; border:solid 1px #035551; color:#000000">
+            <select name="orgtype"  id="orgtype" style="width:105px; height:20px; border:solid 1px #035551; color:#000000">
               <option value=""></option>
-              <option>外汇管理局</option>
-              <option>银行</option>
+              <option value="0">外汇管理局</option>
+              <option value="1">银行</option>
             </select>&nbsp;<font color='red'>*</font></div></td>
           </tr>
         </table></td>
@@ -102,7 +154,7 @@ a:active {
       <tr>
         <td width="9" background="../images/tab_12.gif">&nbsp;</td>
         <td bgcolor="#f3ffe3"><table width="99%" border="0" align="center" cellpadding="0" cellspacing="1" bgcolor="#0e6f68">
-          <tr height="26"><td bgcolor="#FFFFFF" height="26" class="STYLE1" colspan="2" style="padding-top:5px;padding-left:200px"><img src="../images/save.jpg" style="cursor:hand" onclick="document.location='user.html'" />&nbsp;&nbsp;<img src="../images/clear.jpg" style="cursor:hand" /></td></tr>
+          <tr height="26"><td bgcolor="#FFFFFF" height="26" class="STYLE1" colspan="2" style="padding-top:5px;padding-left:200px"><img src="../images/save.jpg" style="cursor:hand" onclick="save()" />&nbsp;&nbsp;<img src="../images/clear.jpg" style="cursor:hand" /></td></tr>
         </table></td>
         <td width="9" background="../images/tab_16.gif">&nbsp;</td>
       </tr>
@@ -129,5 +181,6 @@ a:active {
     </table></td>
   </tr>
 </table>
+</form>
 </body>
 </html>

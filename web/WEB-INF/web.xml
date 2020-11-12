@@ -8,4 +8,13 @@
     <welcome-file-list>
         <welcome-file>login.html</welcome-file>
     </welcome-file-list>
+
+    <servlet>
+        <servlet-name>userAddController</servlet-name>
+        <servlet-class>com.tywh.egov.system.controller.UserAddController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>userAddController</servlet-name>
+        <url-pattern>/user/add</url-pattern>
+    </servlet-mapping>
 </web-app>
