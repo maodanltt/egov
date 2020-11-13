@@ -3,6 +3,8 @@ package com.tywh.egov.system.controller;
 插入用户的controller
  */
 
+import com.tywh.egov.utils.Const;
+import com.tywh.egov.utils.DateUtil;
 import com.tywh.egov.utils.DbUtil;
 
 import javax.servlet.ServletException;
@@ -24,7 +26,8 @@ public class UserAddController extends HttpServlet {
         String userpwd = request.getParameter("userpwd");
         String orgtype = request.getParameter("orgtype");
 
-        String regdate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+//        String regdate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+        String regdate = DateUtil.format(new Date(), Const.DATE_PATTERN);
         String sql = "insert into t_user(usercode,username,userpwd,orgtype,regdate) values(?,?,?,?,?)";
         Connection conn = null;
         PreparedStatement ps = null;
