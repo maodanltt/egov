@@ -21,6 +21,7 @@ public class UserAddController extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        request.setCharacterEncoding("GB18030");
         String usercode = request.getParameter("usercode");
         String username = request.getParameter("username");
         String userpwd = request.getParameter("userpwd");
@@ -48,7 +49,7 @@ public class UserAddController extends HttpServlet {
         }
 
         if (count == 1) {
-            response.sendRedirect("/system/user.html");
+            response.sendRedirect("/user/query");
         }
 
     }

@@ -17,4 +17,13 @@
         <servlet-name>userAddController</servlet-name>
         <url-pattern>/user/add</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>userQueryController</servlet-name>
+        <servlet-class>com.tywh.egov.system.controller.UserQueryController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>userQueryController</servlet-name>
+        <url-pattern>/user/query</url-pattern>
+    </servlet-mapping>
 </web-app>

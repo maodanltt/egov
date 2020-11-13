@@ -1,3 +1,7 @@
+<%@ page import="com.tywh.egov.bean.User" %>
+<%@ page import="java.util.List" %>
+<%@page pageEncoding="GB18030"%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -59,7 +63,7 @@ a:active {
             <tr>
               <td width="60"><table width="90%" border="0" cellpadding="0" cellspacing="0">
                   <tr>
-                    <td class="STYLE1"><div align="center"><img src="../images/add.jpg" style="cursor:hand" onclick="document.location='userAdd.html'"/></div></td>
+                    <td class="STYLE1"><div align="center"><img src="../images/add.jpg" style="cursor:hand" onclick="document.location='/system/userAdd.html'"/></div></td>
                   </tr>
               </table></td>
               <td width="60"><table width="90%" border="0" cellpadding="0" cellspacing="0">
@@ -90,33 +94,29 @@ a:active {
             <td width="24%" height="18" background="../images/tab_14.gif" class="STYLE1"><div align="center" class="STYLE2">用户姓名</div></td>
             <td width="38%" height="18" background="../images/tab_14.gif" class="STYLE1"><div align="center" class="STYLE2 STYLE1">机构类型</div></td>
           </tr>
-          <tr>
-            <td height="18" bgcolor="#FFFFFF"><div align="center" class="STYLE1">
-              <input name="checkbox" type="checkbox" class="STYLE2" value="checkbox" />
-            </div></td>
-            <td height="18" bgcolor="#FFFFFF" class="STYLE2"><div align="center" class="STYLE2 STYLE1">1</div></td>
-            <td height="18" bgcolor="#FFFFFF"><div align="center" class="STYLE2 STYLE1">zhangsan</div></td>
-            <td height="18" bgcolor="#FFFFFF"><div align="center" class="STYLE2 STYLE1">张三</div></td>
-            <td height="18" bgcolor="#FFFFFF"><div align="center" ><a href="#">外汇管理局</a></div></td>
-          </tr>
-          <tr>
-            <td height="18" bgcolor="#FFFFFF"><div align="center" class="STYLE1">
-              <input name="checkbox" type="checkbox" class="STYLE2" value="checkbox" />
-            </div></td>
-            <td height="18" bgcolor="#FFFFFF" class="STYLE2"><div align="center" class="STYLE2 STYLE1">2</div></td>
-            <td height="18" bgcolor="#FFFFFF"><div align="center" class="STYLE2 STYLE1">lisi</div></td>
-            <td height="18" bgcolor="#FFFFFF"><div align="center" class="STYLE2 STYLE1">李四</div></td>
-            <td height="18" bgcolor="#FFFFFF"><div align="center" ><a href="#">外汇管理局</a></div></td>
-          </tr>
-          <tr>
-            <td height="18" bgcolor="#FFFFFF"><div align="center" class="STYLE1">
-              <input name="checkbox" type="checkbox" class="STYLE2" value="checkbox" />
-            </div></td>
-            <td height="18" bgcolor="#FFFFFF" class="STYLE2"><div align="center" class="STYLE2 STYLE1">3</div></td>
-            <td height="18" bgcolor="#FFFFFF"><div align="center" class="STYLE2 STYLE1">wangwu</div></td>
-            <td height="18" bgcolor="#FFFFFF"><div align="center" class="STYLE2 STYLE1">王五</div></td>
-            <td height="18" bgcolor="#FFFFFF"><div align="center" ><a href="#">银行</a></div></td>
-          </tr>
+          <%
+              List<User> userList = (List<User>) request.getAttribute("userList");
+          %>
+
+          <%
+              int i = 0;
+              for(User user : userList) {
+                i++;
+          %>
+              <tr>
+                <td height="18" bgcolor="#FFFFFF"><div align="center" class="STYLE1">
+                  <input name="checkbox" type="checkbox" class="STYLE2" value="checkbox" />
+                </div></td>
+                <td height="18" bgcolor="#FFFFFF" class="STYLE2"><div align="center" class="STYLE2 STYLE1"><%=i%></div></td>
+                <td height="18" bgcolor="#FFFFFF"><div align="center" class="STYLE2 STYLE1"><%=user.getUsercode()%></div></td>
+                <td height="18" bgcolor="#FFFFFF"><div align="center" class="STYLE2 STYLE1"><%=user.getUsername()%></div></td>
+                <td height="18" bgcolor="#FFFFFF"><div align="center" ><a href="#"><%=user.getOrgtype()%></a></div></td>
+              </tr>
+          <%
+              }
+          %>
+
+
         </table></td>
         <td width="9" background="../images/tab_16.gif">&nbsp;</td>
       </tr>
