@@ -39,62 +39,72 @@ a:active {
 	color: #ff0000;
 	text-decoration: none;
 }
-.STYLE7 {font-size: 12}
+.STYLE7 {font-size: 12px}
 
 -->
 </style>
 
+  <script type="text/javascript" src="/js/egov.js"></script>
 <script>
 
     function save() {
       var flag =  checkForm();
-
       if (flag) {
         document.forms[0].submit();
       }
 
     }
     
-    function checkForm() {
-      if (document.getElementById("usercode").value == "") {
-        alert("用户代码不能为空");
-        document.getElementById("usercode").focus();
-        return false;
-      }
+     function checkForm() {
+    //   if (document.getElementById("usercode").value == "") {
+    //     alert("用户代码不能为空");
+    //     document.getElementById("usercode").focus();
+    //     return false;
+    //   }
+    //
+    //   if (document.getElementById("username").value == "") {
+    //     alert("用户名不能为空");
+    //     document.getElementById("username").focus();
+    //     return false;
+    //   }
+    //
+    //   if (document.getElementById("userpwd").value == "") {
+    //     alert("密码不能为空");
+    //     document.getElementById("userpwd").focus();
+    //     return false;
+    //   }
+    //
+    //   if (document.getElementById("checkpwd").value == "") {
+    //     alert("确认密码不能为空");
+    //     document.getElementById("checkpwd").focus();
+    //     return false;
+    //   }
 
-      if (document.getElementById("username").value == "") {
-        alert("用户名不能为空");
-        document.getElementById("username").focus();
-        return false;
-      }
+      // if (document.getElementById("checkpwd").value != document.getElementById("userpwd").value) {
+      //   alert("密码不一致，请修改！");
+      //   document.getElementById("userpwd").value = "";
+      //   document.getElementById("checkpwd").value = "";
+      //   document.getElementById("userpwd").focus();
+      //   return false;
+      // }
 
-      if (document.getElementById("userpwd").value == "") {
-        alert("密码不能为空");
-        document.getElementById("userpwd").focus();
-        return false;
-      }
+      // if (document.getElementById("orgtype").value == "") {
+      //   alert("机构类型不能为空");
+      //   document.getElementById("orgtype").focus();
+      //   return false;
+      // }
+      // return true;
 
-      if (document.getElementById("checkpwd").value == "") {
-        alert("确认密码不能为空");
-        document.getElementById("checkpwd").focus();
-        return false;
-      }
 
-      if (document.getElementById("checkpwd").value != document.getElementById("userpwd").value) {
-        alert("密码不一致，请修改！");
-        document.getElementById("userpwd").value = "";
-        document.getElementById("checkpwd").value = "";
-        document.getElementById("userpwd").focus();
-        return false;
-      }
+      var usercodeItem = new FormItem("用户代码","usercode");
+      var usercodeItem = new FormItem("用户姓名","username");
+      var usercodeItem = new FormItem("用户密码","userpwd");
+      var usercodeItem = new FormItem("确认密码","checkpwd");
+      var usercodeItem = new FormItem("机构类型","orgtype");
 
-      if (document.getElementById("orgtype").value == "") {
-        alert("机构类型不能为空");
-        document.getElementById("orgtype").focus();
-        return false;
-      }
-
-      return true;
+      var formItems = [usercodeItem,usercodeItem,usercodeItem,usercodeItem,usercodeItem]
+      var egovUtil = new EgovUtil();
+      egovUtil.isEmpty(formItems);
     }
 </script>
 </head>
