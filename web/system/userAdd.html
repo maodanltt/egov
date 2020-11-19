@@ -44,7 +44,7 @@ a:active {
 -->
 </style>
 
-  <script type="text/javascript" src="/js/egov.js"></script>
+  <script type="text/javascript" src="/js/egov.js" charset="UTF-8"></script>
 <script>
 
     function save() {
@@ -97,14 +97,14 @@ a:active {
 
 
       var usercodeItem = new FormItem("用户代码","usercode");
-      var usercodeItem = new FormItem("用户姓名","username");
-      var usercodeItem = new FormItem("用户密码","userpwd");
-      var usercodeItem = new FormItem("确认密码","checkpwd");
-      var usercodeItem = new FormItem("机构类型","orgtype");
+      var usernameItem = new FormItem("用户姓名","username");
+      var userpwdItem = new FormItem("用户密码","userpwd");
+      var checkpwdItem = new FormItem("确认密码","checkpwd");
+      var orgtypeItem = new FormItem("机构类型","orgtype");
 
-      var formItems = [usercodeItem,usercodeItem,usercodeItem,usercodeItem,usercodeItem]
-      var egovUtil = new EgovUtil();
-      egovUtil.isEmpty(formItems);
+      var formItems = [usercodeItem,usernameItem,userpwdItem,checkpwdItem,orgtypeItem]
+
+      return $.isEmpty(formItems) && $.isSame(userpwdItem, checkpwdItem);
     }
 </script>
 </head>

@@ -49,7 +49,7 @@ public class UserAddController extends HttpServlet {
         }
 
         if (count == 1) {
-            response.sendRedirect("/user/query");
+            response.sendRedirect("/user/query?pageNo=1");
         }
 
     }

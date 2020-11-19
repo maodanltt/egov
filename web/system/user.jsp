@@ -1,5 +1,6 @@
 <%@ page import="com.tywh.egov.bean.User" %>
 <%@ page import="java.util.List" %>
+<%@ page import="com.tywh.egov.utils.ConfigUtil" %>
 <%@page pageEncoding="GB18030"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -43,7 +44,7 @@ a:active {
 	color: #FF0000;
 	text-decoration: none;
 }
-.STYLE7 {font-size: 12}
+.STYLE7 {font-size: 12px}
 
 -->
 </style>
@@ -96,6 +97,11 @@ a:active {
           </tr>
           <%
               List<User> userList = (List<User>) request.getAttribute("userList");
+              Integer totalRecods = (Integer) request.getAttribute("totcalRecods");
+              Integer totalpages = (Integer)request.getAttribute("totalPages");
+              Integer pageSize = (Integer)request.getAttribute("pageSize");
+              Integer pageNo = (Integer)request.getAttribute("pageNo");
+
           %>
 
           <%
@@ -110,7 +116,7 @@ a:active {
                 <td height="18" bgcolor="#FFFFFF" class="STYLE2"><div align="center" class="STYLE2 STYLE1"><%=i%></div></td>
                 <td height="18" bgcolor="#FFFFFF"><div align="center" class="STYLE2 STYLE1"><%=user.getUsercode()%></div></td>
                 <td height="18" bgcolor="#FFFFFF"><div align="center" class="STYLE2 STYLE1"><%=user.getUsername()%></div></td>
-                <td height="18" bgcolor="#FFFFFF"><div align="center" ><a href="#"><%=user.getOrgtype()%></a></div></td>
+                <td height="18" bgcolor="#FFFFFF"><div align="center" ><a href="#"><%=ConfigUtil.getConfigValue(user.getOrgtype(),"com.tywh.egov.properties.orgtype")%></a></div></td>
               </tr>
           <%
               }
@@ -128,14 +134,14 @@ a:active {
         <td width="15" height="29"><img src="../images/tab_20.gif" width="15" height="29" /></td>
         <td background="../images/tab_21.gif"><table width="100%" border="0" cellspacing="0" cellpadding="0">
           <tr>
-            <td width="25%" height="29" nowrap="nowrap"><span class="STYLE1">共3条纪录，当前第1/1页，每页3条纪录</span></td>
+            <td width="25%" height="29" nowrap="nowrap"><span class="STYLE1">共<%=totalRecods%>条纪录，当前第<%=pageNo%>/<%=totalpages%>页，每页<%=pageSize%>条纪录</span></td>
             <td width="75%" valign="top" class="STYLE1"><div align="right">
               <table width="352" height="20" border="0" cellpadding="0" cellspacing="0">
                 <tr>
-                  <td width="30" height="22" valign="middle"><div align="right"><img src="../images/firstPageDisabled.gif" /></div></td>
-                  <td width="30" height="22" valign="middle"><div align="right"><img src="../images/prevPageDisabled.gif"  /></div></td>
-                  <td width="30" height="22" valign="middle"><div align="right"><img src="../images/nextPageDisabled.gif" /></div></td>
-                  <td width="30" height="22" valign="middle"><div align="right"><img src="../images/lastPageDisabled.gif" /></div></td>
+                  <td width="30" height="22" valign="middle"><div align="right"><img src="../images/firstPage<%=pageNo>1 ? "" : "Disabled"%>.gif" <%=pageNo<=1 ? "" : "style = 'cursor:pointer;'"%> /></div></td>
+                  <td width="30" height="22" valign="middle"><div align="right"><img src="../images/prevPage<%=pageNo>1 ? "" : "Disabled"%>.gif"  <%=pageNo<=1 ? "" : "style = 'cursor:pointer;'"%> /></div></td>
+                  <td width="30" height="22" valign="middle"><div align="right"><img src="../images/nextPage<%=pageNo<totalpages ? "" : "Disabled"%>.gif" <%=pageNo>=totalpages ? "" : "style = 'cursor:pointer;'"%> /></div></td>
+                  <td width="30" height="22" valign="middle"><div align="right"><img src="../images/lastPage<%=pageNo<totalpages ? "" : "Disabled"%>.gif" <%=pageNo>=totalpages ? "" : "style = 'cursor:pointer;'"%> /></div></td>
                   <td width="59" height="22" valign="middle"><div align="right">转到第</div></td>
                   <td width="25" height="22" valign="middle"><span class="STYLE7">
                     <input name="textfield" type="text" class="STYLE1" style="height:14px; width:25px;text-align:right" size="5" />
