@@ -50,6 +50,9 @@ a:active {
 </style>
 
 <script>
+    function toPage(pageNo) {
+        document.location = "/user/query?pageNo=" + pageNo;
+    }
 </script>
 </head>
 
@@ -138,16 +141,16 @@ a:active {
             <td width="75%" valign="top" class="STYLE1"><div align="right">
               <table width="352" height="20" border="0" cellpadding="0" cellspacing="0">
                 <tr>
-                  <td width="30" height="22" valign="middle"><div align="right"><img src="../images/firstPage<%=pageNo>1 ? "" : "Disabled"%>.gif" <%=pageNo<=1 ? "" : "style = 'cursor:pointer;'"%> /></div></td>
-                  <td width="30" height="22" valign="middle"><div align="right"><img src="../images/prevPage<%=pageNo>1 ? "" : "Disabled"%>.gif"  <%=pageNo<=1 ? "" : "style = 'cursor:pointer;'"%> /></div></td>
-                  <td width="30" height="22" valign="middle"><div align="right"><img src="../images/nextPage<%=pageNo<totalpages ? "" : "Disabled"%>.gif" <%=pageNo>=totalpages ? "" : "style = 'cursor:pointer;'"%> /></div></td>
-                  <td width="30" height="22" valign="middle"><div align="right"><img src="../images/lastPage<%=pageNo<totalpages ? "" : "Disabled"%>.gif" <%=pageNo>=totalpages ? "" : "style = 'cursor:pointer;'"%> /></div></td>
+                  <td width="30" height="22" valign="middle"><div align="right"><img src="../images/firstPage<%=pageNo>1 ? "" : "Disabled"%>.gif" <%=pageNo<=1 ? "" : "style = 'cursor:pointer' onclick='toPage(1)'"%> /></div></td>
+                  <td width="30" height="22" valign="middle"><div align="right"><img src="../images/prevPage<%=pageNo>1 ? "" : "Disabled"%>.gif"  <%=pageNo<=1 ? "" : "style = 'cursor:pointer' onclick='toPage(" + (pageNo - 1) + ")'"%> /></div></td>
+                  <td width="30" height="22" valign="middle"><div align="right"><img src="../images/nextPage<%=pageNo<totalpages ? "" : "Disabled"%>.gif" <%=pageNo>=totalpages ? "" : "style = 'cursor:pointer' onclick='toPage(" + (pageNo + 1) + ")'"%> /></div></td>
+                  <td width="30" height="22" valign="middle"><div align="right"><img src="../images/lastPage<%=pageNo<totalpages ? "" : "Disabled"%>.gif" <%=pageNo>=totalpages ? "" : "style = 'cursor:pointer' onclick='toPage(" + totalpages + ")'"%> /></div></td>
                   <td width="59" height="22" valign="middle"><div align="right">×ªµ½µÚ</div></td>
                   <td width="25" height="22" valign="middle"><span class="STYLE7">
-                    <input name="textfield" type="text" class="STYLE1" style="height:14px; width:25px;text-align:right" size="5" />
+                    <input name="textfield" id="textfield" type="text" class="STYLE1" style="height:14px; width:25px;text-align:right" size="5" />
                   </span></td>
                   <td width="23" height="22" valign="middle">Ò³</td>
-                  <td width="30" height="22" valign="middle"><img src="../images/go.gif" width="37" height="15" /></td>
+                  <td width="30" height="22" valign="middle"><img src="../images/go.gif" width="37" height="15" onclick="toPage(document.getElementById('textfield').value)"/></td>
                 </tr>
               </table>
             </div></td>

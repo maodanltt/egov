@@ -49,7 +49,7 @@ public class UserQueryController extends HttpServlet {
             sql = "select count(*) from t_user";
             ps = conn.prepareStatement(sql);
             rs = ps.executeQuery();
-            while(rs.next()) {
+            if(rs.next()) {
                 totcalRecods = rs.getInt(1);
             }
             totalPages = totcalRecods % pageSize == 0 ? totcalRecods / pageSize : totcalRecods / pageSize + 1;
