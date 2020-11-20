@@ -107,8 +107,6 @@ a:active {
       } else {
           document.getElementById("checkbox62").checked = false;
       }
-
-
     }
 </script>
 </head>
@@ -162,7 +160,7 @@ a:active {
           %>
               <tr>
                 <td height="18" bgcolor="#FFFFFF"><div align="center" class="STYLE1">
-                  <input name="checkbox" type="checkbox" class="STYLE2" value="checkbox" onclick="chooseOne()"/>
+                  <input name="checkbox" type="checkbox" class="STYLE2" value="<%=user.getUsercode()%>" onclick="chooseOne()"/>
                 </div></td>
                 <td height="18" bgcolor="#FFFFFF" class="STYLE2"><div align="center" class="STYLE2 STYLE1"><%=i%></div></td>
                 <td height="18" bgcolor="#FFFFFF"><div align="center" class="STYLE2 STYLE1"><%=user.getUsercode()%></div></td>
