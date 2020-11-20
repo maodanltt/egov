@@ -93,6 +93,7 @@ a:active {
         document.getElementById("deleteButton").src = "../images/delete.jpg";
         document.getElementById("updateButton").disabled = false;
         document.getElementById("deleteButton").disabled = false;
+
       }
 
       if (count > 1) {
@@ -102,7 +103,7 @@ a:active {
         document.getElementById("deleteButton").disabled = false;
       }
 
-      if (count ==<%=pageSize%>) {
+      if (count == <%=pageSize%>) {
           document.getElementById("checkbox62").checked = true;
       } else {
           document.getElementById("checkbox62").checked = false;
