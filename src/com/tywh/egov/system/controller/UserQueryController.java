@@ -31,7 +31,7 @@ public class UserQueryController extends HttpServlet {
             conn = DbUtil.getConnection();
             String sql = "select usercode,username,userpwd,orgtype,regdate from t_user ORDER BY regdate desc limit ?,?";
             ps = conn.prepareStatement(sql);
-            ps.setInt(1,pageNo - 1);
+            ps.setInt(1,(pageNo - 1) * pageSize);
             ps.setInt(2,pageSize);
             rs = ps.executeQuery();
 

@@ -3,6 +3,15 @@
 <%@ page import="com.tywh.egov.utils.ConfigUtil" %>
 <%@page pageEncoding="GB18030"%>
 
+<%
+  List<User> userList = (List<User>) request.getAttribute("userList");
+  Integer totalRecods = (Integer) request.getAttribute("totcalRecods");
+  Integer totalpages = (Integer)request.getAttribute("totalPages");
+  Integer pageSize = (Integer)request.getAttribute("pageSize");
+  Integer pageNo = (Integer)request.getAttribute("pageNo");
+
+%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -53,6 +62,54 @@ a:active {
     function toPage(pageNo) {
         document.location = "/user/query?pageNo=" + pageNo;
     }
+
+    function chooseAll() {
+        var checkboxArr = document.getElementsByName("checkbox");
+        for (var i=0; i<checkboxArr.length; i++) {
+            checkboxArr[i].checked = document.getElementById("checkbox62").checked;
+        }
+      chooseOne();
+    }
+
+    function chooseOne() {
+        var checkboxArr = document.getElementsByName("checkbox");
+        var count = 0;
+
+      for (var i=0; i<checkboxArr.length; i++) {
+          if (checkboxArr[i].checked) {
+              count++;
+          }
+      }
+
+      if (count == 0) {
+        document.getElementById("updateButton").src = "../images/update_disabled.jpg";
+        document.getElementById("deleteButton").src = "../images/delete_disabled.jpg";
+        document.getElementById("updateButton").disabled = true;
+        document.getElementById("deleteButton").disabled = true;
+      }
+
+      if (count == 1) {
+        document.getElementById("updateButton").src = "../images/update.jpg";
+        document.getElementById("deleteButton").src = "../images/delete.jpg";
+        document.getElementById("updateButton").disabled = false;
+        document.getElementById("deleteButton").disabled = false;
+      }
+
+      if (count > 1) {
+        document.getElementById("updateButton").src = "../images/update_disabled.jpg";
+        document.getElementById("deleteButton").src = "../images/delete.jpg";
+        document.getElementById("updateButton").disabled = true;
+        document.getElementById("deleteButton").disabled = false;
+      }
+
+      if (count ==<%=pageSize%>) {
+          document.getElementById("checkbox62").checked = true;
+      } else {
+          document.getElementById("checkbox62").checked = false;
+      }
+
+
+    }
 </script>
 </head>
 
@@ -72,12 +129,12 @@ a:active {
               </table></td>
               <td width="60"><table width="90%" border="0" cellpadding="0" cellspacing="0">
                   <tr>
-                    <td class="STYLE1"><div align="center"><img src="../images/update_disabled.jpg" style="cursor:hand" onclick="document.location='userUpdate.html'"/></div></td>
+                    <td class="STYLE1"><div align="center"><img disabled id="updateButton" src="../images/update_disabled.jpg" style="cursor:hand" onclick="document.location='/system/userUpdate.jsp?usercode='"/></div></td>
                   </tr>
               </table></td>
               <td width="60"><table width="90%" border="0" cellpadding="0" cellspacing="0">
                   <tr>
-                    <td class="STYLE1"><div align="center"><img src="../images/delete_disabled.jpg" style="cursor:hand" onclick="javascript:void(0)"/></div></td>
+                    <td class="STYLE1"><div align="center"><img disabled id="deleteButton" src="../images/delete_disabled.jpg" style="cursor:hand" onclick="javascript:void(0)"/></div></td>
                   </tr>
               </table></td>
             </tr>
@@ -92,21 +149,12 @@ a:active {
         <td width="9" background="../images/tab_12.gif">&nbsp;</td>
         <td bgcolor="#f3ffe3"><table width="99%" border="0" align="center" cellpadding="0" cellspacing="1" bgcolor="#0e6f68" >
           <tr>
-            <td width="6%" height="26" background="../images/tab_14.gif" class="STYLE1"><div align="center" class="STYLE2 STYLE1"><input type="checkbox" name="checkbox62" value="checkbox" /></div></td>
+            <td width="6%" height="26" background="../images/tab_14.gif" class="STYLE1"><div align="center" class="STYLE2 STYLE1"><input type="checkbox" name="checkbox62" value="checkbox" id="checkbox62" onclick="chooseAll()"/></div></td>
             <td width="8%" height="18" background="../images/tab_14.gif" class="STYLE1"><div align="center" class="STYLE2 STYLE1">序号</div></td>
             <td width="12%" height="18" background="../images/tab_14.gif" class="STYLE1"><div align="center" class="STYLE2 STYLE1">用户代码</div></td>
             <td width="24%" height="18" background="../images/tab_14.gif" class="STYLE1"><div align="center" class="STYLE2">用户姓名</div></td>
             <td width="38%" height="18" background="../images/tab_14.gif" class="STYLE1"><div align="center" class="STYLE2 STYLE1">机构类型</div></td>
           </tr>
-          <%
-              List<User> userList = (List<User>) request.getAttribute("userList");
-              Integer totalRecods = (Integer) request.getAttribute("totcalRecods");
-              Integer totalpages = (Integer)request.getAttribute("totalPages");
-              Integer pageSize = (Integer)request.getAttribute("pageSize");
-              Integer pageNo = (Integer)request.getAttribute("pageNo");
-
-          %>
-
           <%
               int i = 0;
               for(User user : userList) {
@@ -114,7 +162,7 @@ a:active {
           %>
               <tr>
                 <td height="18" bgcolor="#FFFFFF"><div align="center" class="STYLE1">
-                  <input name="checkbox" type="checkbox" class="STYLE2" value="checkbox" />
+                  <input name="checkbox" type="checkbox" class="STYLE2" value="checkbox" onclick="chooseOne()"/>
                 </div></td>
                 <td height="18" bgcolor="#FFFFFF" class="STYLE2"><div align="center" class="STYLE2 STYLE1"><%=i%></div></td>
                 <td height="18" bgcolor="#FFFFFF"><div align="center" class="STYLE2 STYLE1"><%=user.getUsercode()%></div></td>
