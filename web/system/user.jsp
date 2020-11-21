@@ -63,10 +63,10 @@ a:active {
         document.location = "/user/query?pageNo=" + pageNo;
     }
 
-    function chooseAll() {
+    function chooseAll(field) {
         var checkboxArr = document.getElementsByName("checkbox");
         for (var i=0; i<checkboxArr.length; i++) {
-            checkboxArr[i].checked = document.getElementById("checkbox62").checked;
+            checkboxArr[i].checked = field.checked;
         }
       chooseOne();
     }
@@ -109,10 +109,26 @@ a:active {
           document.getElementById("checkbox62").checked = false;
       }
     }
+
+    function toUpdate() {
+       var checkBoxArr =  document.getElementsByName("checkbox");
+       var usercode = "";
+       for (var i=0; i<checkBoxArr.length; i++) {
+           if (checkBoxArr[i].checked) {
+               usercode = checkBoxArr[i].value;
+               break;
+           }
+       }
+       document.location = "/user/toupdate?usercode=" + usercode + "&pageNo=" + <%=pageNo%>;
+    }
+
+    function refresh() {
+        chooseOne();
+    }
 </script>
 </head>
 
-<body>
+<body onload="refresh()">
 <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
   <tr>
     <td height="30"><table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -128,7 +144,7 @@ a:active {
               </table></td>
               <td width="60"><table width="90%" border="0" cellpadding="0" cellspacing="0">
                   <tr>
-                    <td class="STYLE1"><div align="center"><img disabled id="updateButton" src="../images/update_disabled.jpg" style="cursor:hand" onclick="document.location='/system/userUpdate.jsp?usercode='"/></div></td>
+                    <td class="STYLE1"><div align="center"><img disabled id="updateButton" src="../images/update_disabled.jpg" style="cursor:hand" onclick="toUpdate()"/></div></td>
                   </tr>
               </table></td>
               <td width="60"><table width="90%" border="0" cellpadding="0" cellspacing="0">
@@ -148,7 +164,7 @@ a:active {
         <td width="9" background="../images/tab_12.gif">&nbsp;</td>
         <td bgcolor="#f3ffe3"><table width="99%" border="0" align="center" cellpadding="0" cellspacing="1" bgcolor="#0e6f68" >
           <tr>
-            <td width="6%" height="26" background="../images/tab_14.gif" class="STYLE1"><div align="center" class="STYLE2 STYLE1"><input type="checkbox" name="checkbox62" value="checkbox" id="checkbox62" onclick="chooseAll()"/></div></td>
+            <td width="6%" height="26" background="../images/tab_14.gif" class="STYLE1"><div align="center" class="STYLE2 STYLE1"><input type="checkbox" name="checkbox62" value="checkbox" id="checkbox62" onclick="chooseAll(this)"/></div></td>
             <td width="8%" height="18" background="../images/tab_14.gif" class="STYLE1"><div align="center" class="STYLE2 STYLE1">序号</div></td>
             <td width="12%" height="18" background="../images/tab_14.gif" class="STYLE1"><div align="center" class="STYLE2 STYLE1">用户代码</div></td>
             <td width="24%" height="18" background="../images/tab_14.gif" class="STYLE1"><div align="center" class="STYLE2">用户姓名</div></td>

@@ -1,3 +1,5 @@
+<%@ page import="com.tywh.egov.bean.User" %>
+<%@page pageEncoding="GB18030"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -39,16 +41,34 @@ a:active {
 	color: #FF0000;
 	text-decoration: none;
 }
-.STYLE7 {font-size: 12}
+.STYLE7 {font-size: 12px}
 
 -->
 </style>
-
+<script type="text/javascript" src="/js/egov.js" charset="UTF-8"></script>
 <script>
+  function doUpdate() {
+    var flag = check();
+    if (flag) {
+        document.getElementById("userForm").submit();
+    }
+  }
+
+  function check() {
+    var formItem1 = new FormItem("用户姓名","username");
+    var formItem2 = new FormItem("用户密码","userpswd");
+    var formItem3 = new FormItem("确认密码","checkpswd");
+    var formItem4 = new FormItem("机构类型","orgtype");
+    var formItems = [formItem1,formItem2,formItem3,formItem4];
+    return $.isEmpty(formItems) && $.isSame(formItem2, formItem3);
+  }
 </script>
 </head>
-
+<%
+    User user = (User) request.getAttribute("user");
+%>
 <body>
+<form action="/user/update" id="userForm" method="post">
 <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
   <tr>
     <td height="30"><table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -68,27 +88,40 @@ a:active {
         <td bgcolor="#f3ffe3"><table width="99%" border="0" align="center" cellpadding="0" cellspacing="1" bgcolor="#0e6f68" >
           <tr height="26"></tr>
           <tr>
-            <td width="200" bgcolor="#FFFFFF" height="26" class="STYLE1"><div align="right" style="padding:5px" class="STYLE2 STYLE1">用户代码</div></td>
-            <td bgcolor="#FFFFFF" class="STYLE1"><div align="left" style="padding:2px" class="STYLE2">admin</div></td>
+            <td width="200" bgcolor="#FFFFFF" height="26" class="STYLE1">
+              <div align="right" style="padding:5px" class="STYLE2 STYLE1">用户代码</div>
+            </td>
+            <td bgcolor="#FFFFFF" class="STYLE1">
+              <div align="left" style="padding:2px" class="STYLE2" ><%=user.getUsercode()%>
+                <input type="hidden" name="usercode" value="<%=user.getUsercode()%>"/>
+                <input type="hidden" name="pageNo" value="<%=request.getParameter("pageNo")%>"/>
+              </div>
+            </td>
           </tr>
           <tr>
-            <td width="200" bgcolor="#FFFFFF" height="26" class="STYLE1"><div align="right" style="padding:5px" class="STYLE2 STYLE1">用户姓名</div></td>
-            <td bgcolor="#FFFFFF" class="STYLE1"><div align="left" style="padding:2px" class="STYLE2"><input type="text" name="username" style="width:100px; height:20px; border:solid 1px #035551; color:#000000">&nbsp;<font color='red'>*</font></div></td>
+            <td width="200" bgcolor="#FFFFFF" height="26" class="STYLE1">
+              <div align="right" style="padding:5px" class="STYLE2 STYLE1">用户姓名</div>
+            </td>
+            <td bgcolor="#FFFFFF" class="STYLE1">
+              <div align="left" style="padding:2px" class="STYLE2">
+                <input type="text" name="username" id="username" style="width:100px; height:20px; border:solid 1px #035551; color:#000000" value="<%=user.getUsername()%>">&nbsp;<font color='red'>*</font>
+              </div>
+            </td>
           </tr>
           <tr>
             <td width="200" bgcolor="#FFFFFF" height="26" class="STYLE1"><div align="right" style="padding:5px" class="STYLE2 STYLE1">用户密码</div></td>
-            <td bgcolor="#FFFFFF" class="STYLE1"><div align="left" style="padding:2px" class="STYLE2"><input type="password" name="userpswd" style="width:100px; height:20px; border:solid 1px #035551; color:#000000">&nbsp;<font color='red'>*</font></div></td>
+            <td bgcolor="#FFFFFF" class="STYLE1"><div align="left" style="padding:2px" class="STYLE2"><input type="password" name="userpswd" id="userpswd" style="width:100px; height:20px; border:solid 1px #035551; color:#000000" value="<%=user.getUserpwd()%>">&nbsp;<font color='red'>*</font></div></td>
           </tr>
           <tr>
             <td width="200" bgcolor="#FFFFFF" height="26" class="STYLE1"><div align="right" style="padding:5px" class="STYLE2 STYLE1">确认密码</div></td>
-            <td bgcolor="#FFFFFF" class="STYLE1"><div align="left" style="padding:2px" class="STYLE2"><input type="password" name="checkpswd" style="width:100px; height:20px; border:solid 1px #035551; color:#000000">&nbsp;<font color='red'>*</font></div></td>
+            <td bgcolor="#FFFFFF" class="STYLE1"><div align="left" style="padding:2px" class="STYLE2"><input type="password" name="checkpswd" id="checkpswd" style="width:100px; height:20px; border:solid 1px #035551; color:#000000" value="<%=user.getUserpwd()%>">&nbsp;<font color='red'>*</font></div></td>
           </tr>
           <tr>
             <td width="200" bgcolor="#FFFFFF" height="26" class="STYLE1"><div align="right" style="padding:5px" class="STYLE2 STYLE1">机构类型</div></td>
             <td bgcolor="#FFFFFF" class="STYLE1"><div align="left" style="padding:2px" class="STYLE2">
-            <select name="select" style="width:105px; height:20px; border:solid 1px #035551; color:#000000">
-              <option>外汇管理局</option>
-              <option>银行</option>
+            <select name="orgtype" style="width:105px; height:20px; border:solid 1px #035551; color:#000000" id="orgtype">
+              <option value="0" <%="0".equals(user.getOrgtype()) ? "selected" : "" %>>外汇管理局</option>
+              <option value="1" <%="1".equals(user.getOrgtype()) ? "selected" : "" %>>银行</option>
             </select>&nbsp;<font color='red'>*</font></div></td>
           </tr>
         </table></td>
@@ -101,7 +134,7 @@ a:active {
       <tr>
         <td width="9" background="../images/tab_12.gif">&nbsp;</td>
         <td bgcolor="#f3ffe3"><table width="99%" border="0" align="center" cellpadding="0" cellspacing="1" bgcolor="#0e6f68">
-          <tr height="26"><td bgcolor="#FFFFFF" height="26" class="STYLE1" colspan="2" style="padding-top:5px;padding-left:200px"><img src="../images/save.jpg" style="cursor:hand" onclick="document.location='user.html'" />&nbsp;&nbsp;<img src="../images/clear.jpg" style="cursor:hand" /></td></tr>
+          <tr height="26"><td bgcolor="#FFFFFF" height="26" class="STYLE1" colspan="2" style="padding-top:5px;padding-left:200px"><img src="../images/save.jpg" style="cursor:hand" onclick="doUpdate()" />&nbsp;&nbsp;<img src="../images/clear.jpg" style="cursor:hand" /></td></tr>
         </table></td>
         <td width="9" background="../images/tab_16.gif">&nbsp;</td>
       </tr>
@@ -128,5 +161,6 @@ a:active {
     </table></td>
   </tr>
 </table>
+</form>
 </body>
 </html>

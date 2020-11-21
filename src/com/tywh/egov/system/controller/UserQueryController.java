@@ -18,7 +18,7 @@ public class UserQueryController extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        int pageNo = Integer.parseInt(request.getParameter("pageNo"));
+        int pageNo = Integer.parseInt(request.getParameter("pageNo") == null ? "1" : request.getParameter("pageNo"));
         int pageSize = 3;
         Connection conn = null;
         PreparedStatement ps = null;

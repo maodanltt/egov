@@ -26,4 +26,22 @@
         <servlet-name>userQueryController</servlet-name>
         <url-pattern>/user/query</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>userQueryByCodeController</servlet-name>
+        <servlet-class>com.tywh.egov.system.controller.UserQueryByCodeController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>userQueryByCodeController</servlet-name>
+        <url-pattern>/user/toupdate</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>userUpdateController</servlet-name>
+        <servlet-class>com.tywh.egov.system.controller.UserUpdateController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>userUpdateController</servlet-name>
+        <url-pattern>/user/update</url-pattern>
+    </servlet-mapping>
 </web-app>
