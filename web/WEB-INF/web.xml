@@ -44,4 +44,13 @@
         <servlet-name>userUpdateController</servlet-name>
         <url-pattern>/user/update</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>userDeleteController</servlet-name>
+        <servlet-class>com.tywh.egov.system.controller.UserDeleteController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>userDeleteController</servlet-name>
+        <url-pattern>/user/delete</url-pattern>
+    </servlet-mapping>
 </web-app>

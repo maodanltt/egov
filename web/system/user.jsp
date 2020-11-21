@@ -103,7 +103,7 @@ a:active {
         document.getElementById("deleteButton").disabled = false;
       }
 
-      if (count == <%=pageSize%>) {
+      if (count == checkboxArr.length) {
           document.getElementById("checkbox62").checked = true;
       } else {
           document.getElementById("checkbox62").checked = false;
@@ -125,10 +125,17 @@ a:active {
     function refresh() {
         chooseOne();
     }
+
+    function doDelete() {
+        if (window.confirm("È·ÈÏÉ¾³ýÂð?")) {
+          document.getElementById("userForm").submit();
+        }
+    }
 </script>
 </head>
 
 <body onload="refresh()">
+<form action="/user/delete" method="post" id="userForm">
 <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
   <tr>
     <td height="30"><table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -149,7 +156,7 @@ a:active {
               </table></td>
               <td width="60"><table width="90%" border="0" cellpadding="0" cellspacing="0">
                   <tr>
-                    <td class="STYLE1"><div align="center"><img disabled id="deleteButton" src="../images/delete_disabled.jpg" style="cursor:hand" onclick="javascript:void(0)"/></div></td>
+                    <td class="STYLE1"><div align="center"><img disabled id="deleteButton" src="../images/delete_disabled.jpg" style="cursor:hand" onclick="doDelete()"/></div></td>
                   </tr>
               </table></td>
             </tr>
@@ -224,5 +231,6 @@ a:active {
     </table></td>
   </tr>
 </table>
+</form>
 </body>
 </html>
