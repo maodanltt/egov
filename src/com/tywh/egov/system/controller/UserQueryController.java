@@ -2,6 +2,7 @@ package com.tywh.egov.system.controller;
 
 import com.tywh.egov.bean.User;
 import com.tywh.egov.utils.DbUtil;
+import com.tywh.egov.utils.PageModel;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -20,11 +21,12 @@ public class UserQueryController extends HttpServlet {
 
         int pageNo = Integer.parseInt(request.getParameter("pageNo") == null ? "1" : request.getParameter("pageNo"));
         int pageSize = 3;
+        PageModel<User> pageModel = new PageModel<>(request.getParameter("pageNo"));
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
         List<User> userList = new ArrayList<>();
-        int totcalRecods = 0;
+        int totalRecords = 0;
         int totalPages = 0;
         try {
 
@@ -50,9 +52,9 @@ public class UserQueryController extends HttpServlet {
             ps = conn.prepareStatement(sql);
             rs = ps.executeQuery();
             if(rs.next()) {
-                totcalRecods = rs.getInt(1);
+                totalRecords = rs.getInt(1);
             }
-            totalPages = totcalRecods % pageSize == 0 ? totcalRecods / pageSize : totcalRecods / pageSize + 1;
+            totalPages = totalRecords % pageSize == 0 ? totalRecords / pageSize : totalRecords / pageSize + 1;
         } catch(Exception e) {
             e.printStackTrace();
         } finally {
@@ -61,7 +63,7 @@ public class UserQueryController extends HttpServlet {
 
         request.setAttribute("pageNo",pageNo);
         request.setAttribute("pageSize",pageSize);
-        request.setAttribute("totcalRecods",totcalRecods);
+        request.setAttribute("totcalRecods",totalRecords);
         request.setAttribute("userList",userList);
         request.setAttribute("totalPages",totalPages);
         request.getRequestDispatcher("/system/user.jsp").forward(request,response);
