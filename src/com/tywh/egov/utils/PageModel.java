@@ -12,11 +12,16 @@ public class PageModel<T> {
 
     private Integer totalRecords;
 
-    private List<T> list;
+    private List<T> dataList;
 
     public PageModel(String pageNo) {
-        this.pageNo = Integer.parseInt(pageNo);
+        if (pageNo != null) {
+            this.pageNo = Integer.parseInt(pageNo);
+        } else {
+            this.pageNo = 1;
+        }
         this.pageSize = 3;
+        dataList = new ArrayList<>();
     }
 
 
@@ -41,11 +46,8 @@ public class PageModel<T> {
         return totalRecords % pageSize == 0 ? totalRecords / pageSize : totalRecords / pageSize + 1;
     }
 
-    public List<T> getList() {
-        return list;
+    public List<T> getDataList() {
+        return dataList;
     }
 
-    public void setList(List<T> list) {
-        this.list = list;
-    }
 }

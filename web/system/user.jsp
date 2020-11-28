@@ -1,14 +1,16 @@
 <%@ page import="com.tywh.egov.bean.User" %>
 <%@ page import="java.util.List" %>
 <%@ page import="com.tywh.egov.utils.ConfigUtil" %>
+<%@ page import="com.tywh.egov.utils.PageModel" %>
 <%@page pageEncoding="GB18030"%>
 
 <%
-  List<User> userList = (List<User>) request.getAttribute("userList");
-  Integer totalRecods = (Integer) request.getAttribute("totcalRecods");
-  Integer totalpages = (Integer)request.getAttribute("totalPages");
-  Integer pageSize = (Integer)request.getAttribute("pageSize");
-  Integer pageNo = (Integer)request.getAttribute("pageNo");
+  PageModel<User> pageModel = (PageModel<User>) request.getAttribute("pageModel");
+  List<User> userList = pageModel.getDataList();
+  Integer totalRecods = pageModel.getTotalRecords();
+  Integer totalpages = pageModel.getTotalPages();
+  Integer pageSize = pageModel.getPageSize();
+  Integer pageNo = pageModel.getPageNo();
 
 %>
 
