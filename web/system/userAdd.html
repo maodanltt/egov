@@ -106,6 +106,19 @@ a:active {
 
       return $.isEmpty(formItems) && $.isSame(userpwdItem, checkpwdItem);
     }
+
+    function checkUnique(usercode) {
+        var xRequest = new XMLHttpRequest();
+        xRequest.onreadystatechange = function () {
+            if (xRequest.readyState == 4) {
+                if (xRequest.status == 200) {
+                    document.getElementById("usercodeUnique").innerHTML = xRequest.responseText;
+                }
+            }
+        }
+        xRequest.open("GET","/user/uniquecheck?_=" + new Date().getTime() + "&usercode=" + usercode,true);
+        xRequest.send();
+    }
 </script>
 </head>
 
@@ -131,7 +144,12 @@ a:active {
           <tr height="26"></tr>
           <tr>
             <td width="200" bgcolor="#FFFFFF" height="26" class="STYLE1"><div align="right" style="padding:5px" class="STYLE2 STYLE1">用户代码</div></td>
-            <td bgcolor="#FFFFFF" class="STYLE1"><div align="left" style="padding:2px" class="STYLE2"><input type="text" name="usercode" id="usercode" style="width:100px; height:20px; border:solid 1px #035551; color:#000000">&nbsp;<font color='red'>*</font></div></td>
+            <td bgcolor="#FFFFFF" class="STYLE1">
+              <div align="left" style="padding:2px" class="STYLE2">
+                <input type="text" name="usercode" id="usercode" onblur="checkUnique(this.value)" style="width:100px; height:20px; border:solid 1px #035551; color:#000000">&nbsp;<font color='red'>*</font>
+                <span id="usercodeUnique"></span>
+              </div>
+            </td>
           </tr>
           <tr>
             <td width="200" bgcolor="#FFFFFF" height="26" class="STYLE1"><div align="right" style="padding:5px" class="STYLE2 STYLE1">用户姓名</div></td>

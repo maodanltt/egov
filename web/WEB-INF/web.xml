@@ -53,4 +53,13 @@
         <servlet-name>userDeleteController</servlet-name>
         <url-pattern>/user/delete</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>UserUniqueCheckController</servlet-name>
+        <servlet-class>com.tywh.egov.system.controller.UserUniqueCheckController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UserUniqueCheckController</servlet-name>
+        <url-pattern>/user/uniquecheck</url-pattern>
+    </servlet-mapping>
 </web-app>
