@@ -53,9 +53,9 @@ public class LoginServlet extends HttpServlet {
         if (loginSuccess) {
             response.sendRedirect("/main.html");
         } else {
-            response.setContentType("text/hmtl;charset=GB18030");
-            PrintWriter out = response.getWriter();
-            out.print("<font color='red'>用户名或密码错误</font>");
+            String msg = "用户名或密码错误";
+            request.setAttribute("msg",msg);
+            request.getRequestDispatcher("/").forward(request, response);
         }
     }
 }

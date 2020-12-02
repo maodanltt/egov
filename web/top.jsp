@@ -1,3 +1,11 @@
+<%@ page import="com.tywh.egov.bean.User" %>
+<%@ page import="com.tywh.egov.utils.ConfigUtil" %>
+<%@page pageEncoding="GB18030"%>
+
+<%
+    User user = (User)session.getAttribute("user");
+%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -51,7 +59,7 @@ a.v1:visited {font-size:12px; text-decoration:none; color:#03515d;}
                     <td width="640" height="26"><table width="100%" border="0" cellspacing="0" cellpadding="0">
                       <tr>
                         <td width="30"><div align="center"><img src="images/user.png" width="14" height="14" /></div></td>
-                        <td  nowrap="nowrap" class="STYLE1">当前登录用户：Admin 机构类型：外汇管理局</td>
+                        <td  nowrap="nowrap" class="STYLE1">当前登录用户：<%=user.getUsername()%> 机构类型：<%=ConfigUtil.getConfigValue(user.getOrgtype(),"com.tywh.egov.properties.orgtype")%></td>
                       </tr>
                     </table></td>
                     <td width="19"><img src="images/main_09.gif" width="19" height="26" /></td>
@@ -67,7 +75,7 @@ a.v1:visited {font-size:12px; text-decoration:none; color:#03515d;}
                         <td width="56"><table width="45" border="0" cellspacing="0" cellpadding="0">
                             <tr>
                               <td width="21"><div align="center"><img src="images/logout.gif" width="14" height="14" /></div></td>
-                              <td width="24"><div align="center" class="STYLE1"><a onclick="parent.location='login.html'" style="cursor:hand">退出</a></div></td>
+                              <td width="24"><div align="center" class="STYLE1"><a href="/logout" target="_top" style="cursor:hand">退出</a></div></td>
                             </tr>
                         </table></td>
                         </tr>

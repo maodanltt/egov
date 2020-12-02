@@ -1,3 +1,6 @@
+<%@page pageEncoding="GB18030"%>
+
+
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
@@ -24,17 +27,7 @@
 		function login() {
 			var flag = checkForm();
 			if (flag) {
-				// document.getElementById("loginForm").submit();
-				var xRequest = new XMLHttpRequest();
-				xRequest.onreadystatechange = function () {
-					if (xRequest.readyState == 4) {
-						if (xRequest.status == 200) {
-
-						}
-					}
-				}
-				xRequest.open();
-				xRequest.send();
+				document.getElementById("loginForm").submit();
 			}
 		}
 
@@ -83,11 +76,27 @@
 							              		</tr>
 							              		<tr>
 							                		<td height="25">&nbsp;</td>
-							                		<td height="25"><button style="width:40px;height:25px" onclick="login()"><img src="img/dl.gif" width="37" height="19" border="0"></button><button style="width:40px;height:25px"><img src="img/qx.gif" width="37" height="19"></button></td>
+							                		<td height="25">
+														<button style="width:40px;height:25px" onclick="login()">
+															<img src="img/dl.gif" width="37" height="19" border="0">
+														</button>
+														<button style="width:40px;height:25px">
+															<img src="img/qx.gif" width="37" height="19">
+														</button>
+														<%
+															String msg = (String)request.getAttribute("msg");
+															if (msg != null) {
+														%>
+														<span><%=msg%></span>
+														<%
+															}
+														%>
+													</td>
 							                	</tr>
 											</table>
 										</td>
 										<td width="156" background="img/login_09.gif">&nbsp;</td>
+
 		          					</tr>
 		        				</table>
 		        			</td>
