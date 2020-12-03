@@ -80,4 +80,13 @@
         <servlet-name>logout</servlet-name>
         <url-pattern>/logout</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>investAddController</servlet-name>
+        <servlet-class>com.tywh.egov.basicinfo.controller.InvestAddController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>investAddController</servlet-name>
+        <url-pattern>/invest/add</url-pattern>
+    </servlet-mapping>
 </web-app>

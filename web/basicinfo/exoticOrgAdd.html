@@ -43,12 +43,26 @@ a:active {
 
 -->
 </style>
-
+<script src="/js/egov.js" charset="GB18030"></script>
 <script>
+    function save() {
+        var ok = checkForm;
+        if (ok) {
+            document.getElementById("investForm").submit();
+        }
+    }
+
+    function checkForm() {
+        var formItem1 = new FormItem("投资人名称","invname");
+        var formItem2 = new FormItem("所属国家/地区","cty");
+        var formItems = [formItem1, formItem2];
+        return $.isEmpty(formItems);
+    }
 </script>
 </head>
 
 <body>
+<form action="/invest/add" method="post" id="investForm">
 <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
   <tr>
     <td height="30"><table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -69,18 +83,18 @@ a:active {
           <tr height="26"></tr>
           <tr>
             <td width="200" bgcolor="#FFFFFF" height="26" class="STYLE1"><div align="right" style="padding:5px" class="STYLE2 STYLE1">投资人名称:</div></td>
-            <td bgcolor="#FFFFFF" class="STYLE1" colspan="3"><div align="left" style="padding:2px" class="STYLE2"><input type="text" name="orgname" style="width:100px; height:20px; border:solid 1px #035551; color:#000000">&nbsp;<font color='red'>*</font></div></td>
+            <td bgcolor="#FFFFFF" class="STYLE1" colspan="3"><div align="left" style="padding:2px" class="STYLE2"><input type="text" name="invname" style="width:100px; height:20px; border:solid 1px #035551; color:#000000">&nbsp;<font color='red'>*</font></div></td>
           </tr>
           <tr>
             <td width="200" bgcolor="#FFFFFF" height="26" class="STYLE1"><div align="right" style="padding:5px" class="STYLE2 STYLE1">所属国家/地区:</div></td>
             <td bgcolor="#FFFFFF" class="STYLE1" colspan="3"><div align="left" style="padding:2px" class="STYLE2">
 
-			<select name="sel002" style="width:105px; height:20px; border:solid 1px #035551; color:#000000">
+			<select name="cty" id="cty" style="width:105px; height:20px; border:solid 1px #035551; color:#000000">
 		        <option value=""></option>
-		        <option>中国</option>
-		        <option>美国</option>
-		        <option>英国</option>
-		        <option>日本</option>
+		        <option value="000">中国</option>
+		        <option value="001">美国</option>
+		        <option value="002">英国</option>
+		        <option value="003">日本</option>
 		    </select>&nbsp;<font color='red'>*</font>
             </div></td>
           </tr>
@@ -90,17 +104,17 @@ a:active {
           </tr>
           <tr>
             <td width="200" bgcolor="#FFFFFF" height="26" class="STYLE1" ><div align="right" style="padding:5px" class="STYLE2 STYLE1">联系人:</div></td>
-            <td bgcolor="#FFFFFF" class="STYLE1" colspan="3"><div align="left" style="padding:2px" class="STYLE2"><input type="text" name="contact" style="width:100px; height:20px; border:solid 1px #035551; color:#000000"></div></td>
+            <td bgcolor="#FFFFFF" class="STYLE1" colspan="3"><div align="left" style="padding:2px" class="STYLE2"><input type="text" name="contactman" style="width:100px; height:20px; border:solid 1px #035551; color:#000000"></div></td>
           </tr>
           <tr>
             <td width="200" bgcolor="#FFFFFF" height="26" class="STYLE1"><div align="right" style="padding:5px" class="STYLE2 STYLE1">联系电话:</div></td>
-            <td bgcolor="#FFFFFF" class="STYLE1"><div align="left" style="padding:2px" class="STYLE2"><input type="text" name="tel" style="width:100px; height:20px; border:solid 1px #035551; color:#000000"></div></td>
+            <td bgcolor="#FFFFFF" class="STYLE1"><div align="left" style="padding:2px" class="STYLE2"><input type="text" name="contacttel" style="width:100px; height:20px; border:solid 1px #035551; color:#000000"></div></td>
             <td width="200" bgcolor="#FFFFFF" height="26" class="STYLE1"><div align="right" style="padding:5px" class="STYLE2 STYLE1">电子信箱:</div></td>
             <td bgcolor="#FFFFFF" class="STYLE1"><div align="left" style="padding:2px" class="STYLE2"><input type="text" name="email" style="width:100px; height:20px; border:solid 1px #035551; color:#000000"></div></td>
           </tr>
           <tr>
             <td width="200" bgcolor="#FFFFFF" height="26" class="STYLE1"><div align="right" style="padding:5px" class="STYLE2 STYLE1">备注:</div></td>
-            <td bgcolor="#FFFFFF" class="STYLE1" colspan="3"><div align="left" style="padding:2px" class="STYLE2"><textarea style="width:490px; height:50px; border:solid 1px #035551; color:#000000" ></textarea></div></td>
+            <td bgcolor="#FFFFFF" class="STYLE1" colspan="3"><div align="left" style="padding:2px" class="STYLE2"><textarea style="width:490px; height:50px; border:solid 1px #035551; color:#000000" name="remark"></textarea></div></td>
           </tr>
         </table></td>
         <td width="9" background="../images/tab_16.gif">&nbsp;</td>
@@ -112,7 +126,7 @@ a:active {
       <tr>
         <td width="9" background="../images/tab_12.gif">&nbsp;</td>
         <td bgcolor="#f3ffe3"><table width="99%" border="0" align="center" cellpadding="0" cellspacing="1" bgcolor="#0e6f68">
-          <tr height="26"><td bgcolor="#FFFFFF" height="26" class="STYLE1" colspan="2" style="padding-top:5px;padding-left:200px"><img src="../images/save.jpg" style="cursor:hand" onclick="document.location='exoticOrgList.html'" />&nbsp;&nbsp;<img src="../images/clear.jpg" style="cursor:hand" />&nbsp;&nbsp;<img src="../images/back.jpg" style="cursor:hand" onclick="history.go(-1)" /></td></tr>
+          <tr height="26"><td bgcolor="#FFFFFF" height="26" class="STYLE1" colspan="2" style="padding-top:5px;padding-left:200px"><img src="../images/save.jpg" style="cursor:hand" onclick="save()" />&nbsp;&nbsp;<img src="../images/clear.jpg" style="cursor:hand" />&nbsp;&nbsp;<img src="../images/back.jpg" style="cursor:hand" onclick="history.go(-1)" /></td></tr>
         </table></td>
         <td width="9" background="../images/tab_16.gif">&nbsp;</td>
       </tr>
@@ -139,5 +153,6 @@ a:active {
     </table></td>
   </tr>
 </table>
+</form>
 </body>
 </html>
