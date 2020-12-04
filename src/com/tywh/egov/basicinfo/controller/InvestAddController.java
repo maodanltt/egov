@@ -3,6 +3,7 @@ package com.tywh.egov.basicinfo.controller;
 import com.tywh.egov.bean.User;
 import com.tywh.egov.utils.DateUtil;
 import com.tywh.egov.utils.DbUtil;
+import com.tywh.egov.utils.NumberUtil;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -19,7 +20,10 @@ import java.util.UUID;
 public class InvestAddController extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        String invregnum =  UUID.randomUUID().toString().replace("-","");
+
+        request.setCharacterEncoding("GB18030");
+      //  String invregnum =  UUID.randomUUID().toString().replace("-","");
+        String invregnum = String.valueOf(NumberUtil.getCurrentNumber("invregnum") + 1);
         String invname = request.getParameter("invname");
         String cty = request.getParameter("cty");
         String orgcode = request.getParameter("orgcode");
@@ -59,7 +63,7 @@ public class InvestAddController extends HttpServlet {
         }
 
         if (count == 1) {
-
+            response.sendRedirect("/invest/query");
         }
 
     }

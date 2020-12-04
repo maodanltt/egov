@@ -89,4 +89,13 @@
         <servlet-name>investAddController</servlet-name>
         <url-pattern>/invest/add</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>investQueryController</servlet-name>
+        <servlet-class>com.tywh.egov.basicinfo.controller.InvestQueryController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>investQueryController</servlet-name>
+        <url-pattern>/invest/query</url-pattern>
+    </servlet-mapping>
 </web-app>
