@@ -61,18 +61,18 @@
 							                		<td width="71" height="22">
 										            <select name="orgtype" style="width:100px; height:20px; border:solid 1px #035551; color:#000000">
                                                                                           <option value=""></option>
-                                                                                          <option value="0">外汇管理局</option>
+                                                                                          <option value="0" selected>外汇管理局</option>
                                                                                           <option value="1">银行</option>
 										            </select>
 							                		</td>
 							              		</tr>
 												<tr>
 							                		<td height="22"><span class="STYLE4">用户代码</span></td>
-							                		<td width="71" height="22"><input type="text" name="usercode" id="usercode" style="width:100px; height:20px; border:solid 1px #035551; color:#000000"></td>
+							                		<td width="71" height="22"><input type="text" name="usercode" value="dingrm" id="usercode" style="width:100px; height:20px; border:solid 1px #035551; color:#000000"></td>
 							              		</tr>
 							              		<tr>
 							                		<td height="22"><span class="STYLE4">用户密码</span></td>
-							                		<td height="22"><input type="password" name="userpwd" id="userpwd" style="width:100px; height:22px; border:solid 1px #035551; color:#000000"></td>
+							                		<td height="22"><input type="password" name="userpwd" value="123" id="userpwd" style="width:100px; height:22px; border:solid 1px #035551; color:#000000"></td>
 							              		</tr>
 							              		<tr>
 							                		<td height="25">&nbsp;</td>
