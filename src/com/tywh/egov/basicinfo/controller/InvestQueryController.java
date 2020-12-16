@@ -17,19 +17,51 @@ import java.util.List;
 
 public class InvestQueryController extends HttpServlet {
 
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        String sql = "select invregnum,invname,regdate,cty,usercode from t_invest limit ?,?";
+        String invregnum = request.getParameter("invregnum");
+        String invname = request.getParameter("invname");
+        String startdate = request.getParameter("startdate");
+        String enddate = request.getParameter("enddate");
+        PageModel<Invest> pageModel = new PageModel<>(request.getParameter("pageNo"));
+        List<String> paramList = new ArrayList<>();
+        String sql = "select invregnum,invname,regdate,cty,usercode from t_invest where 1=1";
+        StringBuilder strBuilder = new StringBuilder();
+        strBuilder.append(sql);
+
+        if (invregnum != "") {
+            strBuilder.append(" and invregnum = ?");
+            paramList.add(invregnum);
+        }
+
+        if (invname != "") {
+            strBuilder.append(" and invname like ?");
+            paramList.add("%" + invname + "%");
+        }
+
+        if (startdate != "") {
+            strBuilder.append(" and startdate >= ?");
+            paramList.add(startdate);
+        }
+
+        if (enddate != "") {
+            strBuilder.append(" and enddate <= ?");
+            paramList.add(enddate);
+        }
+
+        sql = strBuilder.append(" LIMIT ?,?").toString();
+
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
-        PageModel<Invest> pageModel = new PageModel<>(request.getParameter("pageNo"));
-
         try {
             conn = DbUtil.getConnection();
             ps = conn.prepareStatement(sql);
-            ps.setInt(1,(pageModel.getPageNo() - 1) * pageModel.getPageSize());
-            ps.setInt(2,pageModel.getPageSize());
+            for (int i=0; i<paramList.size(); i++) {
+                ps.setString(i+1,paramList.get(i));
+            }
+            ps.setInt(paramList.size() + 1 ,(pageModel.getPageNo() - 1) * pageModel.getPageSize());
+            ps.setInt(paramList.size() + 2,pageModel.getPageSize());
             rs = ps.executeQuery();
             while(rs.next()) {
                 Invest invest = new Invest();

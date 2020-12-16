@@ -63,7 +63,7 @@ public class InvestAddController extends HttpServlet {
         }
 
         if (count == 1) {
-            response.sendRedirect("/invest/query");
+            response.sendRedirect("/basicinfo/exoticOrgList.jsp");
         }
 
     }

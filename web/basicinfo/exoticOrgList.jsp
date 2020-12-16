@@ -1,9 +1,21 @@
-<%@ page import="com.tywh.egov.bean.Invest" %>
 <%@ page import="com.tywh.egov.utils.PageModel" %>
+<%@ page import="com.tywh.egov.bean.Invest" %>
+<%@ page import="java.util.List" %>
 <%@ page pageEncoding="gb18030"%>
-
 <%
     PageModel<Invest> pageModel = (PageModel<Invest>) request.getAttribute("pageModel");
+    Integer pageNo = 0;
+    Integer pageSize = 0;
+    Integer totalPages = 0;
+    Integer totalRecords = 0;
+    List<Invest> dataList = null;
+    if (pageModel != null) {
+        pageNo = pageModel.getPageNo();
+        pageSize = pageModel.getPageSize();
+        totalPages = pageModel.getTotalPages();
+        totalRecords = pageModel.getTotalRecords();
+        dataList = pageModel.getDataList();
+    }
 %>
 <html>
 <head>
@@ -48,19 +60,21 @@ a:active {
 	color: #FF0000;
 	text-decoration: none;
 }
-.STYLE7 {font-size: 12px}
+.STYLE7 {font-size: 12}
 
 -->
 </style>
 
 <script>
-  function toPage(toPageNum) {
-      document.location = "/invest/query?pageNo=" + toPageNum;
+  function doQuery() {
+
+    document.getElementById("conditionForm").submit();
   }
 </script>
 </head>
 
 <body>
+<form action="/invest/query" method="post" id="conditionForm">
 <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
   <tr>
     <td height="30"><table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -93,9 +107,9 @@ a:active {
         	<table width="99%" border="0" align="center" cellpadding="0" cellspacing="1">
         	    <tr>
         	        <td width="120" class="STYLE1">投资人登记编号:</td>
-        	        <td width="140" class="STYLE1"><input type="text" name="username" style="width:100px; height:20px; border:solid 1px #035551; color:#000000"></td>
+        	        <td width="140" class="STYLE1"><input type="text" name="invregnum" style="width:100px; height:20px; border:solid 1px #035551; color:#000000"></td>
         	        <td width="90" class="STYLE1">投资人名称:</td>
-        	        <td width="130" class="STYLE1" ><input type="text" name="username" style="width:100px; height:20px; border:solid 1px #035551; color:#000000"></td>
+        	        <td width="130" class="STYLE1" ><input type="text" name="invname" style="width:100px; height:20px; border:solid 1px #035551; color:#000000"></td>
 				    <td width="60"  nowrap class="STYLE1">登记日期:</td>
 				    <td class="class1_td alignleft" nowrap>
 				        <input type="text" name="startdate" style="width:75px; height:20px; border:solid 1px #035551; color:#000000" readonly>
@@ -106,8 +120,8 @@ a:active {
 				      </td> 
         	    </tr>
         	    <tr>
-        	        <td class="STYLE1" colspan="5" align="left">&nbsp;&nbsp;<img id="addBtnImg" style="cursor:hand" onclick="document.location='/basicinfo/exoticOrgAdd.html'" src="../images/add.jpg" /></td>
-        	        <td nowrap class="STYLE1" align="right"><img src="../images/query.jpg" style="cursor:hand" onclick="document.all.addBtnImg.src='../images/add.jpg';document.all.dataTableBody.style.display='block'" />&nbsp;&nbsp;<img src="../images/clear.jpg" style="cursor:hand" />&nbsp;&nbsp;</td>
+        	        <td class="STYLE1" colspan="5" align="left">&nbsp;&nbsp;<img id="addBtnImg" style="cursor:hand" onclick="document.location='exoticOrgAdd.html'" src="../images/add.jpg" /></td>
+        	        <td nowrap class="STYLE1" align="right"><img src="../images/query.jpg" style="cursor:hand" onclick="doQuery()" />&nbsp;&nbsp;<img src="../images/clear.jpg" style="cursor:hand" />&nbsp;&nbsp;</td>
         	    </tr>
         	</table>
         </td>
@@ -135,22 +149,26 @@ a:active {
             <td width="8%" height="18" background="../images/tab_14.gif" class="STYLE1"><div align="center" class="STYLE2 STYLE1">经办人</div></td>
           </tr>
           </thead>
-          <tbody id="dataTableBody" style="display:none">
+
+
           <%
+            if (dataList != null) {
               int i = 0;
-              for(Invest invest : pageModel.getDataList()) {
-                i++;
+              for (Invest invest : dataList) {
+
           %>
-            <tr>
-              <td height="18" bgcolor="#FFFFFF" class="STYLE2"><div align="center" class="STYLE2 STYLE1"><%=i%></div></td>
-              <td height="18" bgcolor="#FFFFFF"><div align="center" class="STYLE2 STYLE1"  style="cursor:hand" onclick="document.location='exoticOrgView.html'"><%=invest.getInvregnum()%></div></td>
-              <td height="18" bgcolor="#FFFFFF"><div align="center" class="STYLE2 STYLE1"><%=invest.getInvname()%></div></td>
-              <td height="18" bgcolor="#FFFFFF"><div align="center" class="STYLE2 STYLE1"><%=invest.getRegdate()%></div></td>
-              <td height="18" bgcolor="#FFFFFF"><div align="center" class="STYLE2 STYLE1"><a href="#"><%=invest.getCty()%></a></div></td>
-              <td height="18" bgcolor="#FFFFFF"><div align="center" class="STYLE2 STYLE1"><%=invest.getUsercode()%></div></td>
-            </tr>
+                  <tr>
+                    <td height="18" bgcolor="#FFFFFF" class="STYLE2"><div align="center" class="STYLE2 STYLE1"><%=++i%></div></td>
+                    <td height="18" bgcolor="#FFFFFF"><div align="center" class="STYLE2 STYLE1"  style="cursor:hand" onclick="document.location='exoticOrgView.html'"><%=invest.getInvregnum()%></div></td>
+                    <td height="18" bgcolor="#FFFFFF"><div align="center" class="STYLE2 STYLE1"><%=invest.getInvname()%></div></td>
+                    <td height="18" bgcolor="#FFFFFF"><div align="center" class="STYLE2 STYLE1"><%=invest.getRegdate()%></div></td>
+                    <td height="18" bgcolor="#FFFFFF"><div align="center" class="STYLE2 STYLE1"><a href="#"><%=invest.getCty()%></a></div></td>
+                    <td height="18" bgcolor="#FFFFFF"><div align="center" class="STYLE2 STYLE1"><%=invest.getUsercode()%></div></td>
+                  </tr>
+
           <%
               }
+            }
           %>
 
           </tbody>
@@ -165,20 +183,20 @@ a:active {
         <td width="15" height="29"><img src="../images/tab_20.gif" width="15" height="29" /></td>
         <td background="../images/tab_21.gif"><table width="100%" border="0" cellspacing="0" cellpadding="0">
           <tr>
-            <td width="25%" height="29" nowrap="nowrap"><span class="STYLE1">共<%=pageModel.getTotalRecords()%>条纪录，当前第<%=pageModel.getPageNo()%>/<%=pageModel.getTotalPages()%>页，每页<%=pageModel.getPageSize()%>条纪录</span></td>
+            <td width="25%" height="29" nowrap="nowrap"><span class="STYLE1">共3条纪录，当前第1/1页，每页3条纪录</span></td>
             <td width="75%" valign="top" class="STYLE1"><div align="right">
               <table width="352" height="20" border="0" cellpadding="0" cellspacing="0">
                 <tr>
-                  <td width="30" height="22" valign="middle"><div align="right"><img src="../images/firstPage<%=pageModel.getPageNo() >1 ? "" : "Disabled" %>.gif" <%=pageModel.getPageNo()<=1 ? "" : "style = 'cursor:pointer' onclick='toPage(1)'"%>/></div></td>
-                  <td width="30" height="22" valign="middle"><div align="right"><img src="../images/prevPage<%=pageModel.getPageNo() > 1 ? "" : "Disabled" %>.gif" <%=pageModel.getPageNo()<=1 ? "" : "style = 'cursor:pointer' onclick='toPage(" + (pageModel.getPageNo() - 1) + ")'"%> /></div></td>
-                  <td width="30" height="22" valign="middle"><div align="right"><img src="../images/nextPage<%=pageModel.getPageNo() < pageModel.getTotalPages() ? "" : "Disabled" %>.gif" <%=pageModel.getPageNo()>=pageModel.getTotalPages() ? "" : "style = 'cursor:pointer' onclick='toPage(" + (pageModel.getPageNo() + 1) + ")'"%>/></div></td>
-                  <td width="30" height="22" valign="middle"><div align="right"><img src="../images/lastPage<%=pageModel.getPageNo() < pageModel.getTotalPages() ? "" : "Disabled" %>.gif" <%=pageModel.getPageNo()>=pageModel.getTotalPages() ? "" : "style = 'cursor:pointer' onclick='toPage(" + pageModel.getTotalPages() + ")'"%>/></div></td>
+                  <td width="30" height="22" valign="middle"><div align="right"><img src="../images/firstPageDisabled.gif" /></div></td>
+                  <td width="30" height="22" valign="middle"><div align="right"><img src="../images/prevPageDisabled.gif"  /></div></td>
+                  <td width="30" height="22" valign="middle"><div align="right"><img src="../images/nextPageDisabled.gif" /></div></td>
+                  <td width="30" height="22" valign="middle"><div align="right"><img src="../images/lastPageDisabled.gif" /></div></td>
                   <td width="59" height="22" valign="middle"><div align="right" class="STYLE2 STYLE1">转到第</div></td>
                   <td width="25" height="22" valign="middle"><span class="STYLE7">
-                    <input name="textfield" id="textfield" type="text" class="STYLE1" style="height:20px; width:25px;text-align:right" size="5" />
+                    <input name="textfield" type="text" class="STYLE1" style="height:20px; width:25px;text-align:right" size="5" />
                   </span></td>
                   <td width="23" height="22" valign="middle" class="STYLE2 STYLE1">页</td>
-                  <td width="30" height="22" valign="middle"><img src="../images/go.gif" width="37" height="15" onclick="toPage(document.getElementById('textfield').value)" /></td>
+                  <td width="30" height="22" valign="middle"><img src="../images/go.gif" width="37" height="15" /></td>
                 </tr>
               </table>
             </div></td>
@@ -189,5 +207,6 @@ a:active {
     </table></td>
   </tr>
 </table>
+</form>
 </body>
 </html>
