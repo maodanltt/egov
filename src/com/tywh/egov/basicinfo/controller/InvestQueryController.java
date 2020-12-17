@@ -1,6 +1,7 @@
 package com.tywh.egov.basicinfo.controller;
 
 import com.tywh.egov.bean.Invest;
+import com.tywh.egov.utils.ConfigUtil;
 import com.tywh.egov.utils.DbUtil;
 import com.tywh.egov.utils.PageModel;
 
@@ -18,45 +19,47 @@ import java.util.List;
 public class InvestQueryController extends HttpServlet {
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+       // request.setCharacterEncoding("GB18030");
         String invregnum = request.getParameter("invregnum");
         String invname = request.getParameter("invname");
         String startdate = request.getParameter("startdate");
         String enddate = request.getParameter("enddate");
         PageModel<Invest> pageModel = new PageModel<>(request.getParameter("pageNo"));
         List<String> paramList = new ArrayList<>();
-        String sql = "select invregnum,invname,regdate,cty,usercode from t_invest where 1=1";
-        StringBuilder strBuilder = new StringBuilder();
-        strBuilder.append(sql);
+        StringBuilder sql = new StringBuilder("select invregnum,invname,regdate,cty,usercode from t_invest where 1=1");
+        StringBuilder totalRecordsSql = new StringBuilder("select count(*) from t_invest where 1=1");
 
-        if (invregnum != "") {
-            strBuilder.append(" and invregnum = ?");
+        if (ConfigUtil.isNotEmpty(invregnum)) {
+            sql.append(" and invregnum = ?");
+            totalRecordsSql.append(" and invregnum = ?");
             paramList.add(invregnum);
         }
 
-        if (invname != "") {
-            strBuilder.append(" and invname like ?");
+        if (ConfigUtil.isNotEmpty(invname)) {
+            sql.append(" and invname like ?");
+            totalRecordsSql.append(" and invname like ?");
             paramList.add("%" + invname + "%");
         }
 
-        if (startdate != "") {
-            strBuilder.append(" and startdate >= ?");
+        if (ConfigUtil.isNotEmpty(startdate)) {
+            sql.append(" and regdate >= ?");
+            totalRecordsSql.append(" and regdate >= ?");
             paramList.add(startdate);
         }
 
-        if (enddate != "") {
-            strBuilder.append(" and enddate <= ?");
+        if (ConfigUtil.isNotEmpty(enddate)) {
+            sql.append(" and regdate <= ?");
+            totalRecordsSql.append(" and regdate <= ?");
             paramList.add(enddate);
         }
-
-        sql = strBuilder.append(" LIMIT ?,?").toString();
+        sql.append(" LIMIT ?,?");
 
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
             conn = DbUtil.getConnection();
-            ps = conn.prepareStatement(sql);
+            ps = conn.prepareStatement(sql.toString());
             for (int i=0; i<paramList.size(); i++) {
                 ps.setString(i+1,paramList.get(i));
             }
@@ -73,8 +76,11 @@ public class InvestQueryController extends HttpServlet {
                 pageModel.getDataList().add(invest);
             }
 
-            sql = "select count(*) from t_invest";
-            ps = conn.prepareStatement(sql);
+
+            ps = conn.prepareStatement(totalRecordsSql.toString());
+            for (int i=0; i<paramList.size(); i++) {
+                ps.setString(i+1,paramList.get(i));
+            }
             rs = ps.executeQuery();
             if (rs.next()) {
                 pageModel.setTotalRecords(rs.getInt(1));
@@ -87,4 +93,9 @@ public class InvestQueryController extends HttpServlet {
         request.setAttribute("pageModel", pageModel);
         request.getRequestDispatcher("/basicinfo/exoticOrgList.jsp").forward(request, response);
     }
+
+
+//    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//        doPost(request, response);
+//    }
 }

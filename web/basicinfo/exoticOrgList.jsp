@@ -60,7 +60,7 @@ a:active {
 	color: #FF0000;
 	text-decoration: none;
 }
-.STYLE7 {font-size: 12}
+.STYLE7 {font-size: 12px}
 
 -->
 </style>
@@ -69,6 +69,11 @@ a:active {
   function doQuery() {
 
     document.getElementById("conditionForm").submit();
+  }
+
+  function toPage(pageNo) {
+      document.getElementById("conditionForm").action = "/invest/query?pageNo=" + pageNo;
+      document.getElementById("conditionForm").submit();
   }
 </script>
 </head>
@@ -107,20 +112,20 @@ a:active {
         	<table width="99%" border="0" align="center" cellpadding="0" cellspacing="1">
         	    <tr>
         	        <td width="120" class="STYLE1">投资人登记编号:</td>
-        	        <td width="140" class="STYLE1"><input type="text" name="invregnum" style="width:100px; height:20px; border:solid 1px #035551; color:#000000"></td>
+        	        <td width="140" class="STYLE1"><input type="text" name="invregnum" value="<%=request.getParameter("invregnum") == null ? "" : request.getParameter("invregnum")%>" style="width:100px; height:20px; border:solid 1px #035551; color:#000000"></td>
         	        <td width="90" class="STYLE1">投资人名称:</td>
-        	        <td width="130" class="STYLE1" ><input type="text" name="invname" style="width:100px; height:20px; border:solid 1px #035551; color:#000000"></td>
+        	        <td width="130" class="STYLE1" ><input type="text" name="invname" value="<%=request.getParameter("invname") == null ? "" : request.getParameter("invname")%>" style="width:100px; height:20px; border:solid 1px #035551; color:#000000"></td>
 				    <td width="60"  nowrap class="STYLE1">登记日期:</td>
 				    <td class="class1_td alignleft" nowrap>
-				        <input type="text" name="startdate" style="width:75px; height:20px; border:solid 1px #035551; color:#000000" readonly>
+				        <input type="text" name="startdate" value="<%=request.getParameter("startdate") == null ? "" : request.getParameter("startdate")%>" style="width:75px; height:20px; border:solid 1px #035551; color:#000000" readonly>
 				        <input onclick="setday(document.all.startdate);" type="image" value=" 选择日期 " name="button004" src="../clander/clander.gif" align="top"/>
 				  ～
-				  <input type="text" name="enddate" style="width:75px; height:20px; border:solid 1px #035551; color:#000000" readonly>
+				  <input type="text" name="enddate" value="<%=request.getParameter("enddate") == null ? "" : request.getParameter("enddate")%>" style="width:75px; height:20px; border:solid 1px #035551; color:#000000" readonly>
 				  <input onclick="setday(document.all.enddate);" type="image" value=" 选择日期 " name="button004" src="../clander/clander.gif" align="top"/>
 				      </td> 
         	    </tr>
         	    <tr>
-        	        <td class="STYLE1" colspan="5" align="left">&nbsp;&nbsp;<img id="addBtnImg" style="cursor:hand" onclick="document.location='exoticOrgAdd.html'" src="../images/add.jpg" /></td>
+        	        <td class="STYLE1" colspan="5" align="left">&nbsp;&nbsp;<img id="addBtnImg" style="cursor:hand" onclick="document.location='/basicinfo/exoticOrgAdd.html'" src="../images/add.jpg" /></td>
         	        <td nowrap class="STYLE1" align="right"><img src="../images/query.jpg" style="cursor:hand" onclick="doQuery()" />&nbsp;&nbsp;<img src="../images/clear.jpg" style="cursor:hand" />&nbsp;&nbsp;</td>
         	    </tr>
         	</table>
@@ -159,7 +164,7 @@ a:active {
           %>
                   <tr>
                     <td height="18" bgcolor="#FFFFFF" class="STYLE2"><div align="center" class="STYLE2 STYLE1"><%=++i%></div></td>
-                    <td height="18" bgcolor="#FFFFFF"><div align="center" class="STYLE2 STYLE1"  style="cursor:hand" onclick="document.location='exoticOrgView.html'"><%=invest.getInvregnum()%></div></td>
+                    <td height="18" bgcolor="#FFFFFF"><div align="center" class="STYLE2 STYLE1"  style="cursor:hand" onclick="document.location='/basicinfo/exoticOrgView.html'"><%=invest.getInvregnum()%></div></td>
                     <td height="18" bgcolor="#FFFFFF"><div align="center" class="STYLE2 STYLE1"><%=invest.getInvname()%></div></td>
                     <td height="18" bgcolor="#FFFFFF"><div align="center" class="STYLE2 STYLE1"><%=invest.getRegdate()%></div></td>
                     <td height="18" bgcolor="#FFFFFF"><div align="center" class="STYLE2 STYLE1"><a href="#"><%=invest.getCty()%></a></div></td>
@@ -183,14 +188,19 @@ a:active {
         <td width="15" height="29"><img src="../images/tab_20.gif" width="15" height="29" /></td>
         <td background="../images/tab_21.gif"><table width="100%" border="0" cellspacing="0" cellpadding="0">
           <tr>
-            <td width="25%" height="29" nowrap="nowrap"><span class="STYLE1">共3条纪录，当前第1/1页，每页3条纪录</span></td>
+            <td width="25%" height="29" nowrap="nowrap"><span class="STYLE1">共<%=totalRecords%>条纪录，当前第<%=pageNo%>/<%=totalPages%>页，每页<%=pageSize%>条纪录</span></td>
             <td width="75%" valign="top" class="STYLE1"><div align="right">
+
+                <%
+                    boolean isFirstPage = pageNo ==1;
+                    boolean isLastPage = pageNo == totalPages;
+                %>
               <table width="352" height="20" border="0" cellpadding="0" cellspacing="0">
                 <tr>
-                  <td width="30" height="22" valign="middle"><div align="right"><img src="../images/firstPageDisabled.gif" /></div></td>
-                  <td width="30" height="22" valign="middle"><div align="right"><img src="../images/prevPageDisabled.gif"  /></div></td>
-                  <td width="30" height="22" valign="middle"><div align="right"><img src="../images/nextPageDisabled.gif" /></div></td>
-                  <td width="30" height="22" valign="middle"><div align="right"><img src="../images/lastPageDisabled.gif" /></div></td>
+                  <td width="30" height="22" valign="middle"><div align="right"><img src="../images/firstPage<%=isFirstPage ? "Disabled" : ""%>.gif" <%=isFirstPage ? "" : "style='cusor:hand' onclick='toPage(1)'"%> /></div></td>
+                  <td width="30" height="22" valign="middle"><div align="right"><img src="../images/prevPage<%=isFirstPage ? "Disabled" : ""%>.gif"  <%=isFirstPage ? "" : "style='cusor:hand' onclick='toPage(" + (pageNo - 1) +")'"%>/></div></td>
+                  <td width="30" height="22" valign="middle"><div align="right"><img src="../images/nextPage<%=isLastPage ? "Disabled" : ""%>.gif" <%=isLastPage ? "" : "style='cusor:hand' onclick='toPage(" + (pageNo + 1) +")'"%>/></div></td>
+                  <td width="30" height="22" valign="middle"><div align="right"><img src="../images/lastPage<%=isLastPage ? "Disabled" : ""%>.gif" <%=isLastPage ? "" : "style='cusor:hand' onclick='toPage(" + totalPages +")'"%>/></div></td>
                   <td width="59" height="22" valign="middle"><div align="right" class="STYLE2 STYLE1">转到第</div></td>
                   <td width="25" height="22" valign="middle"><span class="STYLE7">
                     <input name="textfield" type="text" class="STYLE1" style="height:20px; width:25px;text-align:right" size="5" />

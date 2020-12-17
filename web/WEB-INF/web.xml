@@ -9,6 +9,15 @@
         <welcome-file>login.jsp</welcome-file>
     </welcome-file-list>
 
+    <filter>
+        <filter-name>charactorFilter</filter-name>
+        <filter-class>com.tywh.egov.filter.CharactorFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>charactorFilter</filter-name>
+        <url-pattern>/invest/*</url-pattern>
+    </filter-mapping>
+
     <servlet>
         <servlet-name>userAddController</servlet-name>
         <servlet-class>com.tywh.egov.system.controller.UserAddController</servlet-class>
