@@ -52,7 +52,7 @@ public class UserDeleteController extends HttpServlet {
         }
 
         if (flag) {
-            response.sendRedirect("/user/query");
+            response.sendRedirect("/controller/user/query");
         }
     }
 

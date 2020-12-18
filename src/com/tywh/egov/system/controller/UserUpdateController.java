@@ -39,7 +39,7 @@ public class UserUpdateController extends HttpServlet {
         }
 
         if (count == 1) {
-            response.sendRedirect("/user/query?pageNo=" + pageNo);
+            response.sendRedirect("/controller/user/query?pageNo=" + pageNo);
         }
     }
 

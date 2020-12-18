@@ -3,6 +3,9 @@
 <%@ page import="java.util.List" %>
 <%@ page pageEncoding="gb18030"%>
 <%
+    String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+request.getContextPath()+"/";
+%>
+<%
     PageModel<Invest> pageModel = (PageModel<Invest>) request.getAttribute("pageModel");
     Integer pageNo = 0;
     Integer pageSize = 0;
@@ -19,6 +22,7 @@
 %>
 <html>
 <head>
+    <base href="<%=basePath%>">
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
 <script type="text/javascript" src="../clander/date.js"></script>
 <script type="text/javascript" src="../clander/setday.js"></script>
@@ -72,14 +76,14 @@ a:active {
   }
 
   function toPage(pageNo) {
-      document.getElementById("conditionForm").action = "/invest/query?pageNo=" + pageNo;
+      document.getElementById("conditionForm").action = "/controller/invest/query?pageNo=" + pageNo;
       document.getElementById("conditionForm").submit();
   }
 </script>
 </head>
 
 <body>
-<form action="/invest/query" method="post" id="conditionForm">
+<form action="/controller/invest/query" method="post" id="conditionForm">
 <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
   <tr>
     <td height="30"><table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -118,10 +122,10 @@ a:active {
 				    <td width="60"  nowrap class="STYLE1">登记日期:</td>
 				    <td class="class1_td alignleft" nowrap>
 				        <input type="text" name="startdate" value="<%=request.getParameter("startdate") == null ? "" : request.getParameter("startdate")%>" style="width:75px; height:20px; border:solid 1px #035551; color:#000000" readonly>
-				        <input onclick="setday(document.all.startdate);" type="image" value=" 选择日期 " name="button004" src="../clander/clander.gif" align="top"/>
+				        <input onclick="setday(document.all.startdate);" type="image" value=" 选择日期 " name="button004" src="/clander/clander.gif" align="top"/>
 				  ～
 				  <input type="text" name="enddate" value="<%=request.getParameter("enddate") == null ? "" : request.getParameter("enddate")%>" style="width:75px; height:20px; border:solid 1px #035551; color:#000000" readonly>
-				  <input onclick="setday(document.all.enddate);" type="image" value=" 选择日期 " name="button004" src="../clander/clander.gif" align="top"/>
+				  <input onclick="setday(document.all.enddate);" type="image" value=" 选择日期 " name="button004" src="/clander/clander.gif" align="top"/>
 				      </td> 
         	    </tr>
         	    <tr>

@@ -75,7 +75,7 @@ a.v1:visited {font-size:12px; text-decoration:none; color:#03515d;}
                         <td width="56"><table width="45" border="0" cellspacing="0" cellpadding="0">
                             <tr>
                               <td width="21"><div align="center"><img src="images/logout.gif" width="14" height="14" /></div></td>
-                              <td width="24"><div align="center" class="STYLE1"><a href="/logout" target="_top" style="cursor:hand">ÍË³ö</a></div></td>
+                              <td width="24"><div align="center" class="STYLE1"><a href="/controller/logout" target="_top" style="cursor:hand">ÍË³ö</a></div></td>
                             </tr>
                         </table></td>
                         </tr>
