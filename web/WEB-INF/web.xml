@@ -118,4 +118,13 @@
         <servlet-name>investQueryController</servlet-name>
         <url-pattern>/controller/invest/query</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>enterQueryByCodeController</servlet-name>
+        <servlet-class>com.tywh.egov.basicinfo.controller.EnterQueryByCodeController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>enterQueryByCodeController</servlet-name>
+        <url-pattern>/controller/enter/queryByCode</url-pattern>
+    </servlet-mapping>
 </web-app>

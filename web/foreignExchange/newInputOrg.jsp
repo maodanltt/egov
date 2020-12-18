@@ -1,5 +1,11 @@
+<%@ page pageEncoding="gb18030"%>
+<%
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+request.getContextPath()+"/";
+%>
+
 <html>
 <head>
+    <base href="<%=basePath%>">
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
 <script type="text/javascript" src="../clander/date.js"></script>
 <script type="text/javascript" src="../clander/setday.js"></script>
@@ -47,10 +53,38 @@ a:active {
 </style>
 
 <script>
+    function toDetail() {
+        var ok = check();
+        if (ok) {
+            document.getElementById("orgcodeForm").submit();
+        }
+    }
+
+    function check() {
+        if (document.getElementById("orgcode").value == "") {
+            alert("组织机构代码不能为空")
+            document.getElementById("orgcode").focus();
+            return false;
+        }
+        return true;
+    }
+
+    function message() {
+        <%
+            if (request.getAttribute("msg") != null) {
+                String msg = (String)request.getAttribute("msg");
+        %>
+            alert("<%=msg%>");
+            document.getElementById("orgcode").focus();
+        <%
+            }
+        %>
+    }
 </script>
 </head>
 
-<body>
+<body onload="message()">
+<form action="/controller/enter/queryByCode" method="post" id="orgcodeForm">
 <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
   <tr>
     <td height="30"><table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -83,8 +117,8 @@ a:active {
         	<table width="99%" border="0" align="center" cellpadding="0" cellspacing="1">
         	    <tr>
         	        <td width="90" class="STYLE1">组织机构代码:</td>
-        	        <td width="140" class="STYLE1"><input type="text" name="username" style="width:100px; height:20px; border:solid 1px #035551; color:#000000"></td>
-        	        <td width="180" class="STYLE1"><button id="addBtn" style="padding-left:0px;padding-top:0px;width:68px;height:27px" onclick="document.location='inputOrgInfo.html'" ><img id="addBtnImg" src="../images/ok.jpg" /></button></td>
+        	        <td width="140" class="STYLE1"><input type="text" name="orgcode" id="orgcode" style="width:100px; height:20px; border:solid 1px #035551; color:#000000"></td>
+        	        <td width="180" class="STYLE1"><button id="addBtn" style="padding-left:0px;padding-top:0px;width:68px;height:27px" onclick="toDetail()" ><img id="addBtnImg" src="../images/ok.jpg" /></button></td>
         	        <td class="STYLE1">&nbsp;</td>
         	    </tr>
         	</table>
@@ -109,4 +143,5 @@ a:active {
   </tr>
 </table>
 </body>
+</form>
 </html>
