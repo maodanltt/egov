@@ -42,10 +42,10 @@ a:hover {
 }
 a:active {
 	font-size: 12px;
-	color: #FF0000;
+	color: #ff0000;
 	text-decoration: none;
 }
-.STYLE7 {font-size: 12}
+.STYLE7 {font-size: 12px}
 
 -->
 </style>
@@ -77,7 +77,7 @@ a:active {
           </tr>
           <tr>
             <td width="100" bgcolor="#FFFFFF" height="26" class="STYLE1"><div align="right" style="padding:5px" class="STYLE2 STYLE1">组织机构代码:</div></td>
-            <td width="250" bgcolor="#FFFFFF" class="STYLE1"><div align="left" style="padding:2px" class="STYLE2"><%=request.getParameter("orgcode")%></div></td>
+            <td width="250" bgcolor="#FFFFFF" class="STYLE1"><div align="left" style="padding:2px" class="STYLE2"><%=request.getParameter("orgcode")%><input type="hidden" name="orgcode" value="<%=request.getParameter("orgcode")%>"></div></td>
             <td width="100" bgcolor="#FFFFFF" height="26" class="STYLE1"><div align="right" style="padding:5px" class="STYLE2 STYLE1">外汇登记证号:</div></td>
             <td bgcolor="#FFFFFF" class="STYLE1"><div align="left" style="padding:2px" class="STYLE2"><input type="text" name="regno" style="width:150px; height:20px; border:solid 1px #035551; color:#000000"><font color="red">*</font></div></td>
           </tr>
@@ -103,8 +103,9 @@ a:active {
             <td bgcolor="#FFFFFF" class="STYLE1"><div align="left" style="padding:2px" class="STYLE2">
 		      <select name="regcry" style="WIDTH:100px">
 		        <option></option>
-		        <option>美元</option>
-		        <option>……</option>
+		        <option value="000">美元</option>
+		        <option value="001">人民币</option>
+                <option value="002">日元</option>
 		      </select> <font color="red">*</font></div></td>
           </tr>
           <tr>
@@ -124,13 +125,13 @@ a:active {
 		            <td width="20%" bgcolor="#CCCCCC" class="STYLE1"><div align="center" style="padding:2px" class="STYLE2">国别</div></td>
 		            <td width="20%" bgcolor="#CCCCCC" class="STYLE1"><div align="center" style="padding:5px" class="STYLE2 STYLE1">注册资本出资额</div></td>
 		            <td width="20%" bgcolor="#CCCCCC" class="STYLE1"><div align="center" style="padding:2px" class="STYLE2">利润分配比例</div></td>
-		            <td width="20%" bgcolor="#CCCCCC" class="STYLE1"><div align="center" style="padding:2px" class="STYLE2"><img src="../images/query.jpg" onclick="window.open('orgcodeSelect.html', '选择组织机构代码', 'width=720, height=400, scrollbars=no')"/></div></td>
+		            <td width="20%" bgcolor="#CCCCCC" class="STYLE1"><div align="center" style="padding:2px" class="STYLE2"><img src="../images/query.jpg" onclick="window.open('/foreignExchange/orgcodeSelect.jsp', '分页查询投资人信息','width=720, height=400,location=no,scrollbars=no')"/></div></td>
 		          </tr>
 		          <tr>
 		            <td width="20%" bgcolor="#FFFFFF" height="20" class="STYLE1"><div align="center" style="padding:5px" class="STYLE2 STYLE1">XXXXXX</div></td>
-		            <td width="20%" bgcolor="#FFFFFF" class="STYLE1"><div align="center" style="padding:2px" class="STYLE2">美国</div></td>
-		            <td width="20%" bgcolor="#FFFFFF" class="STYLE1"><div align="center" style="padding:5px" class="STYLE2 STYLE1"><input type="text" name="orgname" style="width:90px; height:20px; border:solid 1px #035551; color:#000000"><font color="red">*</font></div></td>
-		            <td width="20%" bgcolor="#FFFFFF" class="STYLE1"><div align="center" style="padding:2px" class="STYLE2"><input type="text" name="orgname" style="width:90px; height:20px; border:solid 1px #035551; color:#000000"><font color="red">*</font></div></td>
+		            <td width="20%" bgcolor="#FFFFFF" class="STYLE1"><div align="center" style="padding:2px" class="STYLE2" >美国</div></td>
+		            <td width="20%" bgcolor="#FFFFFF" class="STYLE1"><div align="center" style="padding:5px" class="STYLE2 STYLE1"><input type="text" name="regcap_detail" style="width:90px; height:20px; border:solid 1px #035551; color:#000000"><font color="red">*</font></div></td>
+		            <td width="20%" bgcolor="#FFFFFF" class="STYLE1"><div align="center" style="padding:2px" class="STYLE2"><input type="text" name="scale" style="width:90px; height:20px; border:solid 1px #035551; color:#000000"><font color="red">*</font></div></td>
 		            <td width="20%" bgcolor="#FFFFFF" class="STYLE1"><div align="center" style="padding:2px" class="STYLE2"><img src="../images/delete.jpg"/></div></td>
 		          </tr>
                 </table>

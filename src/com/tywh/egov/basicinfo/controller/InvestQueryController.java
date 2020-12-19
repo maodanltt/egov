@@ -91,7 +91,7 @@ public class InvestQueryController extends HttpServlet {
             DbUtil.close(conn, ps, rs);
         }
         request.setAttribute("pageModel", pageModel);
-        request.getRequestDispatcher("/basicinfo/exoticOrgList.jsp").forward(request, response);
+        request.getRequestDispatcher(request.getParameter("forward")).forward(request, response);
     }
 
 

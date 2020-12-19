@@ -121,6 +121,7 @@ a:active {
         	        <td width="130" class="STYLE1" ><input type="text" name="invname" value="<%=request.getParameter("invname") == null ? "" : request.getParameter("invname")%>" style="width:100px; height:20px; border:solid 1px #035551; color:#000000"></td>
 				    <td width="60"  nowrap class="STYLE1">登记日期:</td>
 				    <td class="class1_td alignleft" nowrap>
+                        <input type="hidden" name="forward" value="/basicinfo/exoticOrgList.jsp">
 				        <input type="text" name="startdate" value="<%=request.getParameter("startdate") == null ? "" : request.getParameter("startdate")%>" style="width:75px; height:20px; border:solid 1px #035551; color:#000000" readonly>
 				        <input onclick="setday(document.all.startdate);" type="image" value=" 选择日期 " name="button004" src="/clander/clander.gif" align="top"/>
 				  ～
@@ -196,15 +197,15 @@ a:active {
             <td width="75%" valign="top" class="STYLE1"><div align="right">
 
                 <%
-                    boolean isFirstPage = pageNo ==1;
-                    boolean isLastPage = pageNo == totalPages;
+                    boolean isNotFirstPage = pageNo >1;
+                    boolean isNotLastPage = pageNo < totalPages;
                 %>
-              <table width="352" height="20" border="0" cellpadding="0" cellspacing="0">
-                <tr>
-                  <td width="30" height="22" valign="middle"><div align="right"><img src="../images/firstPage<%=isFirstPage ? "Disabled" : ""%>.gif" <%=isFirstPage ? "" : "style='cusor:hand' onclick='toPage(1)'"%> /></div></td>
-                  <td width="30" height="22" valign="middle"><div align="right"><img src="../images/prevPage<%=isFirstPage ? "Disabled" : ""%>.gif"  <%=isFirstPage ? "" : "style='cusor:hand' onclick='toPage(" + (pageNo - 1) +")'"%>/></div></td>
-                  <td width="30" height="22" valign="middle"><div align="right"><img src="../images/nextPage<%=isLastPage ? "Disabled" : ""%>.gif" <%=isLastPage ? "" : "style='cusor:hand' onclick='toPage(" + (pageNo + 1) +")'"%>/></div></td>
-                  <td width="30" height="22" valign="middle"><div align="right"><img src="../images/lastPage<%=isLastPage ? "Disabled" : ""%>.gif" <%=isLastPage ? "" : "style='cusor:hand' onclick='toPage(" + totalPages +")'"%>/></div></td>
+                <table width="352" height="20" border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td width="30" height="22" valign="middle"><div align="right"><img src="../images/firstPage<%=isNotFirstPage ? "" : "Disabled"%>.gif" <%=isNotFirstPage ? "style='cusor:hand' onclick='toPage(1)'" : ""%> /></div></td>
+                        <td width="30" height="22" valign="middle"><div align="right"><img src="../images/prevPage<%=isNotFirstPage ? "" : "Disabled"%>.gif"  <%=isNotFirstPage ? "style='cusor:hand' onclick='toPage(" + (pageNo - 1) +")'" : ""%>/></div></td>
+                        <td width="30" height="22" valign="middle"><div align="right"><img src="../images/nextPage<%=isNotLastPage ? "" : "Disabled"%>.gif" <%=isNotLastPage ? "style='cusor:hand' onclick='toPage(" + (pageNo + 1) +")'" : ""%>/></div></td>
+                        <td width="30" height="22" valign="middle"><div align="right"><img src="../images/lastPage<%=isNotLastPage ? "" : "Disabled"%>.gif" <%=isNotLastPage ? "style='cusor:hand' onclick='toPage(" + totalPages +")'" : ""%>/></div></td>
                   <td width="59" height="22" valign="middle"><div align="right" class="STYLE2 STYLE1">转到第</div></td>
                   <td width="25" height="22" valign="middle"><span class="STYLE7">
                     <input name="textfield" type="text" class="STYLE1" style="height:20px; width:25px;text-align:right" size="5" />
