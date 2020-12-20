@@ -1,6 +1,7 @@
 <%@ page import="com.tywh.egov.utils.PageModel" %>
 <%@ page import="com.tywh.egov.bean.Invest" %>
 <%@ page import="java.util.List" %>
+<%@ page import="com.tywh.egov.utils.ConfigUtil" %>
 <%@ page pageEncoding="gb18030"%>
 <%
   String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+request.getContextPath()+"/";
@@ -168,7 +169,7 @@
             %>
             <tr>
               <td height="18" bgcolor="#FFFFFF" class="STYLE2"><div align="center" class="STYLE2 STYLE1"><%=++i%></div></td>
-              <td height="18" bgcolor="#FFFFFF"><div align="center" class="STYLE2 STYLE1"  style="cursor:hand" onclick="document.location='/basicinfo/exoticOrgView.html'"><%=invest.getInvregnum()%></div></td>
+              <td height="18" bgcolor="#FFFFFF"><div align="center" class="STYLE2 STYLE1"  style="cursor:hand" onclick="window.opener.addTableRow('<%=invest.getInvregnum()%>','<%=invest.getInvname()%>','<%=ConfigUtil.getConfigValue(invest.getCty(),"com.tywh.egov.properties.orgtype")%>')"><%=invest.getInvregnum()%></div></td>
               <td height="18" bgcolor="#FFFFFF"><div align="center" class="STYLE2 STYLE1"><%=invest.getInvname()%></div></td>
               <td height="18" bgcolor="#FFFFFF"><div align="center" class="STYLE2 STYLE1"><%=invest.getRegdate()%></div></td>
               <td height="18" bgcolor="#FFFFFF"><div align="center" class="STYLE2 STYLE1"><%=invest.getUsercode()%></div></td>

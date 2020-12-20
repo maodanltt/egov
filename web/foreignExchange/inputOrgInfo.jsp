@@ -51,6 +51,30 @@ a:active {
 </style>
 
 <script>
+  function addTableRow(invregnum,invname,cty) {
+    alert(cty);
+    var investTable = document.getElementById("investTable");
+    var newRow = investTable.insertRow(investTable.rows.length);
+    newRow.style.background = "white";
+    newRow.id = invregnum;
+    var cell0 = newRow.insertCell(0);
+    var cell1 = newRow.insertCell(1);
+    var cell2 = newRow.insertCell(2);
+    var cell3 = newRow.insertCell(3);
+    var cell4 = newRow.insertCell(4);
+
+    cell0.innerHTML = '<td width="20%" bgcolor="#FFFFFF" height="20" class="STYLE1"><div align="center" style="padding:5px" class="STYLE2 STYLE1">' + invname + '</div></td>';
+    cell1.innerHTML = '<td width="20%" bgcolor="#FFFFFF" class="STYLE1"><div align="center" style="padding:2px" class="STYLE2" >meiguo</div></td>';
+    cell2.innerHTML = '<td width="20%" bgcolor="#FFFFFF" class="STYLE1"><div align="center" style="padding:5px" class="STYLE2 STYLE1"><input type="text" name="regcap_detail" style="width:90px; height:20px; border:solid 1px #035551; color:#000000"><font color="red">*</font></div></td>';
+    cell3.innerHTML = '<td width="20%" bgcolor="#FFFFFF" class="STYLE1"><div align="center" style="padding:2px" class="STYLE2"><input type="text" name="scale" style="width:90px; height:20px; border:solid 1px #035551; color:#000000"><font color="red">*</font></div></td>';
+    cell4.innerHTML = '<td width="20%" bgcolor="#FFFFFF" class="STYLE1"><div align="center" style="padding:2px" class="STYLE2"><img src="../images/delete.jpg" onclick="deleteRow(' + "'" + invregnum + "'" +')"/></div></td>';
+  }
+
+  function deleteRow(rowId) {
+     var investTable = document.getElementById("investTable");
+     var rowElement = document.getElementById(rowId)
+     investTable.deleteRow(rowElement.rowIndex);
+  }
 </script>
 </head>
 
@@ -119,20 +143,13 @@ a:active {
           </tr> 
           <tr>
             <td width="100%" bgcolor="#FFFFFF" class="STYLE1" colspan="4">
-                <table border="0" width="100%" height="100%" cellpadding="0" cellspacing="1" bgcolor="#0e6f68">
+                <table border="0" width="100%" height="100%" cellpadding="0" cellspacing="1" bgcolor="#0e6f68" id="investTable">
 		          <tr>
 		            <td width="20%" bgcolor="#CCCCCC" height="20" class="STYLE1"><div align="center" style="padding:5px" class="STYLE2 STYLE1">投资者名称</div></td>
 		            <td width="20%" bgcolor="#CCCCCC" class="STYLE1"><div align="center" style="padding:2px" class="STYLE2">国别</div></td>
 		            <td width="20%" bgcolor="#CCCCCC" class="STYLE1"><div align="center" style="padding:5px" class="STYLE2 STYLE1">注册资本出资额</div></td>
 		            <td width="20%" bgcolor="#CCCCCC" class="STYLE1"><div align="center" style="padding:2px" class="STYLE2">利润分配比例</div></td>
 		            <td width="20%" bgcolor="#CCCCCC" class="STYLE1"><div align="center" style="padding:2px" class="STYLE2"><img src="../images/query.jpg" onclick="window.open('/foreignExchange/orgcodeSelect.jsp', '分页查询投资人信息','width=720, height=400,location=no,scrollbars=no')"/></div></td>
-		          </tr>
-		          <tr>
-		            <td width="20%" bgcolor="#FFFFFF" height="20" class="STYLE1"><div align="center" style="padding:5px" class="STYLE2 STYLE1">XXXXXX</div></td>
-		            <td width="20%" bgcolor="#FFFFFF" class="STYLE1"><div align="center" style="padding:2px" class="STYLE2" >美国</div></td>
-		            <td width="20%" bgcolor="#FFFFFF" class="STYLE1"><div align="center" style="padding:5px" class="STYLE2 STYLE1"><input type="text" name="regcap_detail" style="width:90px; height:20px; border:solid 1px #035551; color:#000000"><font color="red">*</font></div></td>
-		            <td width="20%" bgcolor="#FFFFFF" class="STYLE1"><div align="center" style="padding:2px" class="STYLE2"><input type="text" name="scale" style="width:90px; height:20px; border:solid 1px #035551; color:#000000"><font color="red">*</font></div></td>
-		            <td width="20%" bgcolor="#FFFFFF" class="STYLE1"><div align="center" style="padding:2px" class="STYLE2"><img src="../images/delete.jpg"/></div></td>
 		          </tr>
                 </table>
             </td>
