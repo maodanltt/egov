@@ -127,4 +127,13 @@
         <servlet-name>enterQueryByCodeController</servlet-name>
         <url-pattern>/controller/enter/queryByCode</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>enterAddController</servlet-name>
+        <servlet-class>com.tywh.egov.basicinfo.controller.EnterAddController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>enterAddController</servlet-name>
+        <url-pattern>/controller/enter/add</url-pattern>
+    </servlet-mapping>
 </web-app>

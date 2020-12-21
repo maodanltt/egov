@@ -52,7 +52,6 @@ a:active {
 
 <script>
   function addTableRow(invregnum,invname,cty) {
-    alert(cty);
     var investTable = document.getElementById("investTable");
     var newRow = investTable.insertRow(investTable.rows.length);
     newRow.style.background = "white";
@@ -63,9 +62,9 @@ a:active {
     var cell3 = newRow.insertCell(3);
     var cell4 = newRow.insertCell(4);
 
-    cell0.innerHTML = '<td width="20%" bgcolor="#FFFFFF" height="20" class="STYLE1"><div align="center" style="padding:5px" class="STYLE2 STYLE1">' + invname + '</div></td>';
-    cell1.innerHTML = '<td width="20%" bgcolor="#FFFFFF" class="STYLE1"><div align="center" style="padding:2px" class="STYLE2" >meiguo</div></td>';
-    cell2.innerHTML = '<td width="20%" bgcolor="#FFFFFF" class="STYLE1"><div align="center" style="padding:5px" class="STYLE2 STYLE1"><input type="text" name="regcap_detail" style="width:90px; height:20px; border:solid 1px #035551; color:#000000"><font color="red">*</font></div></td>';
+    cell0.innerHTML = '<td width="20%" bgcolor="#FFFFFF" height="20" class="STYLE1"><div align="center" style="padding:5px" class="STYLE2 STYLE1"> <input type="hidden" name="invregnum" value="' + invregnum +'">' + invname + '</div></td>';
+    cell1.innerHTML = '<td width="20%" bgcolor="#FFFFFF" class="STYLE1"><div align="center" style="padding:2px" class="STYLE2" ><input type="hidden" name="cty" value="' + cty +'">' + cty +'</div></td>';
+    cell2.innerHTML = '<td width="20%" bgcolor="#FFFFFF" class="STYLE1"><div align="center" style="padding:5px" class="STYLE2 STYLE1"><input type="text" name="regcap_detail" onblur="sum()" style="width:90px; height:20px; border:solid 1px #035551; color:#000000" ><font color="red">*</font></div></td>';
     cell3.innerHTML = '<td width="20%" bgcolor="#FFFFFF" class="STYLE1"><div align="center" style="padding:2px" class="STYLE2"><input type="text" name="scale" style="width:90px; height:20px; border:solid 1px #035551; color:#000000"><font color="red">*</font></div></td>';
     cell4.innerHTML = '<td width="20%" bgcolor="#FFFFFF" class="STYLE1"><div align="center" style="padding:2px" class="STYLE2"><img src="../images/delete.jpg" onclick="deleteRow(' + "'" + invregnum + "'" +')"/></div></td>';
   }
@@ -74,11 +73,38 @@ a:active {
      var investTable = document.getElementById("investTable");
      var rowElement = document.getElementById(rowId)
      investTable.deleteRow(rowElement.rowIndex);
+     sum();
   }
+
+  function sum(){
+      var total = 0;
+      var outTotal = 0;
+      var regcaps = document.getElementsByName("regcap_detail");
+      var ctys = document.getElementsByName("cty");
+      for (var i=0; i<regcaps.length; i++) {
+        if (regcaps[i].value != '') {
+          total = total + parseInt(regcaps[i].value);
+
+          if (ctys[i].value != '中国') {
+              outTotal = outTotal + parseInt(regcaps[i].value);
+          }
+        }
+      }
+
+      document.getElementById("regcap").value = total;
+      document.getElementById("outregcap").value = outTotal;
+      document.getElementById("tipscale").innerHTML = ((outTotal / total) * 100).toFixed(2) + "%";
+  }
+  
+  function addEnterprise() {
+      document.getElementById("dataForm").submit();
+  }
+
 </script>
 </head>
 
 <body>
+<form action="/controller/enter/add" method="post" id="dataForm">
 <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
   <tr>
     <td height="30"><table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -122,7 +148,7 @@ a:active {
           </tr>        
           <tr>
             <td width="100" bgcolor="#FFFFFF" height="26" class="STYLE1"><div align="right" style="padding:5px" class="STYLE2 STYLE1">注册资本:</div></td>
-            <td width="250" bgcolor="#FFFFFF" class="STYLE1"><div align="left" style="padding:2px" class="STYLE2"><input type="text" name="regcap" style="width:150px; height:20px; border:solid 1px #035551; color:#000000"><font color="red">*</font></div></td>
+            <td width="250" bgcolor="#FFFFFF" class="STYLE1"><div align="left" style="padding:2px" class="STYLE2"><input type="text" readonly="true" name="regcap" id="regcap" style="width:150px; height:20px; border:solid 1px #035551; color:#000000"><font color="red">*</font></div></td>
             <td width="100" bgcolor="#FFFFFF" height="26" class="STYLE1"><div align="right" style="padding:5px" class="STYLE2 STYLE1">注册币种:</div></td>
             <td bgcolor="#FFFFFF" class="STYLE1"><div align="left" style="padding:2px" class="STYLE2">
 		      <select name="regcry" style="WIDTH:100px">
@@ -134,9 +160,9 @@ a:active {
           </tr>
           <tr>
             <td width="100" bgcolor="#FFFFFF" height="26" class="STYLE1"><div align="right" style="padding:5px" class="STYLE2 STYLE1">外方注册资本:</div></td>
-            <td width="250" bgcolor="#FFFFFF" class="STYLE1"><div align="left" style="padding:2px" class="STYLE2"><input type="text" name="outregcap" style="width:150px; height:20px; border:solid 1px #035551; color:#000000"><font color="red">*</font></div></td>
+            <td width="250" bgcolor="#FFFFFF" class="STYLE1"><div align="left" style="padding:2px" class="STYLE2"><input type="text" readonly="true" name="outregcap" style="width:150px; height:20px; border:solid 1px #035551; color:#000000"><font color="red">*</font></div></td>
             <td width="100" bgcolor="#FFFFFF" height="26" class="STYLE1"><div align="right" style="padding:5px" class="STYLE2 STYLE1">外方出资比例:</div></td>
-            <td bgcolor="#FFFFFF" class="STYLE1"><div align="left" style="padding:2px" class="STYLE2">0%</div></td>
+            <td bgcolor="#FFFFFF" class="STYLE1"><div align="left" style="padding:2px" class="STYLE2"><span id="tipscale"></span</div></td>
           </tr>
           <tr>
             <td width="100" height="26" class="STYLE1" colspan="4"><div align="center" style="padding:5px" class="STYLE2 STYLE1"><font color="#FFFFFF"><B>投资者资金及利润分配</B></font></div></td>
@@ -165,7 +191,7 @@ a:active {
       <tr>
         <td width="9" background="../images/tab_12.gif">&nbsp;</td>
         <td bgcolor="#f3ffe3"><table width="99%" border="0" align="center" cellpadding="0" cellspacing="1" bgcolor="#0e6f68">
-          <tr height="30"><td bgcolor="#FFFFFF" height="30" class="STYLE1" colspan="2" align="center"><img src="../images/ok.jpg" onclick="document.location='newInputOrg.html'"/>&nbsp;&nbsp;<img src="../images/back.jpg" onclick="document.location='newInputOrg.html'"/></td></tr>
+          <tr height="30"><td bgcolor="#FFFFFF" height="30" class="STYLE1" colspan="2" align="center"><img src="../images/ok.jpg" onclick="addEnterprise()"/>&nbsp;&nbsp;<img src="../images/back.jpg" onclick="document.location='newInputOrg.html'"/></td></tr>
         </table></td>
         <td width="9" background="../images/tab_16.gif">&nbsp;</td>
       </tr>
@@ -192,5 +218,6 @@ a:active {
     </table></td>
   </tr>
 </table>
+</form>
 </body>
 </html>
