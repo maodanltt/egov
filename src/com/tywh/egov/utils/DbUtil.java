@@ -7,10 +7,18 @@ import java.sql.*;
  */
 public class DbUtil {
 
+    private static ThreadLocal<Connection> threadLocal = new ThreadLocal<>();
+
     public static Connection getConnection() throws Exception{
         //com.mysql.jdbc.Driver
-        Class.forName("com.mysql.jdbc.Driver");
-        Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/egov","root","root123");
+//        Class.forName("com.mysql.jdbc.Driver");
+//        Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/egov","root","root123");
+//        return conn;
+        Connection conn = threadLocal.get();
+        if (conn == null) {
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/egov","root","root123");
+            threadLocal.set(conn);
+        }
         return conn;
     }
 
@@ -34,6 +42,7 @@ public class DbUtil {
         if (conn != null) {
             try {
                 conn.close();
+                threadLocal.remove();
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
