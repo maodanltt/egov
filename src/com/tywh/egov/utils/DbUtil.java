@@ -16,6 +16,7 @@ public class DbUtil {
 //        return conn;
         Connection conn = threadLocal.get();
         if (conn == null) {
+            Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/egov","root","root123");
             threadLocal.set(conn);
         }
